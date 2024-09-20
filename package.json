@@ -20,9 +20,9 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"generate": "drizzle-kit generate",
-		"studio": "drizzle-kit studio",
-		"migrate": "drizzle-kit push"
+		"db:generate": "drizzle-kit generate",
+		"db:studio": "drizzle-kit studio",
+		"db:migrate": "drizzle-kit push"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -56,6 +56,8 @@
 		"bits-ui": "^0.21.15",
 		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.33.0",
+		"lucide-svelte": "^0.441.0",
+		"mode-watcher": "^0.4.1",
 		"postgres": "^3.4.4",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1"

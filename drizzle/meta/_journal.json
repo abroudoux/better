@@ -8,6 +8,13 @@
       "when": 1726825640380,
       "tag": "0000_lying_pestilence",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1726841979647,
+      "tag": "0001_chubby_zaran",
+      "breakpoints": true
     }
   ]
 }
