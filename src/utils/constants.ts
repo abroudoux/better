@@ -9,7 +9,7 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 		icon: House
 	},
 	{
-		label: "Tranings",
+		label: "Trainings",
 		url: "/trainings",
 		icon: Medal
 	},
@@ -19,7 +19,7 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 		icon: Library
 	},
 	{
-		label: "Learning",
+		label: "Learnings",
 		url: "/learnings",
 		icon: Blocks
 	},
