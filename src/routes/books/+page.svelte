@@ -2,6 +2,4 @@
 	import Page from "$components/global/Page.svelte";
 </script>
 
-<Page>
-	<h1>Dashboard</h1>
-</Page>
+<Page>books</Page>
