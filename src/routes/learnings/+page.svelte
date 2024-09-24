@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Page from "$components/global/Page.svelte";
+	import Section from "$components/layouts/Section.svelte";
 </script>
 
-<Page>Learnings</Page>
+<Section>Learnings</Section>

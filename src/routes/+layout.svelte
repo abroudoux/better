@@ -3,6 +3,7 @@
 
 	import Header from "$components/global/Header.svelte";
 	import Sidebar from "$components/global/Sidebar.svelte";
+	import { Toaster } from "$lib/components/ui/sonner";
 
 	import "$styles/index.css";
 </script>
@@ -13,3 +14,4 @@
 	<Sidebar />
 	<slot />
 </main>
+<Toaster />

@@ -8,26 +8,34 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(cuid())
-  email    String   @unique
-  name     String
-  first_name String
-  phone   String?
-  password String
-  is_admin  Boolean  @default(false)
-  profile_picture String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  habits  Habit[]
+  id             String    @id @default(cuid())
+  email          String    @unique
+  name           String
+  firstName      String
+  phone          String?
+  password       String
+  isAdmin        Boolean   @default(false)
+  profilePicture String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  habits         Habit[]
+  Session        Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Habit {
-  id       String   @id @default(cuid())
-  name     String
-  user     User     @relation(fields: [user_id], references: [id])
-  user_id   String
-  is_completed Boolean @default(false)
-  points Int @default(5)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  isCompleted Boolean  @default(false)
+  points      Int      @default(5)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

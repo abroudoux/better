@@ -1,7 +1,12 @@
-import type { Component } from "svelte";
+import type { SvelteComponent } from "svelte";
 
 export interface MenuItemSidebar {
 	label: string;
 	url: string;
-	icon: Component;
+	icon: typeof SvelteComponent;
+}
+
+export interface DatabaseUserAttributes {
+	email: string;
+	// password: string;
 }

@@ -24,7 +24,7 @@
 		"db:generate": "prisma generate",
 		"db:studio": "prisma studio",
 		"db:reset": "prisma migrate reset --force --skip-seed",
-		"db:seed": "node --experimental-strip-types prisma/seed.ts"
+		"db:seed": "node --experimental-strip-types src/lib/db/seed.ts"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -33,14 +33,11 @@
 		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
 		"@types/eslint": "^9.6.0",
 		"@types/node": "^22.5.5",
-		"@types/pg": "^8.11.10",
 		"autoprefixer": "^10.4.20",
-		"dotenv": "^16.4.5",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
-		"pg": "^8.13.0",
 		"postcss": "^8.4.47",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
@@ -48,19 +45,22 @@
 		"svelte": "^5.0.0-next.1",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^3.4.12",
-		"ts-node": "^10.9.2",
 		"typescript": "^5.6.2",
 		"typescript-eslint": "^8.0.0",
 		"vite": "^5.0.3",
 		"vitest": "^2.0.0"
 	},
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^4.0.1",
 		"@prisma/client": "5.19.1",
 		"bits-ui": "^0.21.15",
 		"clsx": "^2.1.1",
+		"install": "^0.13.0",
+		"lucia": "^3.2.0",
 		"lucide-svelte": "^0.441.0",
 		"mode-watcher": "^0.4.1",
-		"postgres": "^3.4.4",
+		"oslo": "^1.2.1",
+		"svelte-sonner": "^0.3.27",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1"
 	}
