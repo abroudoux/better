@@ -7,8 +7,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres

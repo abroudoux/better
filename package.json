@@ -33,7 +33,6 @@
 		"@types/pg": "^8.11.10",
 		"autoprefixer": "^10.4.20",
 		"dotenv": "^16.4.5",
-		"drizzle-kit": "^0.24.2",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
@@ -51,11 +50,9 @@
 		"vitest": "^2.0.0"
 	},
 	"dependencies": {
-		"@electric-sql/pglite": "^0.2.7",
 		"@types/node": "^22.5.5",
 		"bits-ui": "^0.21.15",
 		"clsx": "^2.1.1",
-		"drizzle-orm": "^0.33.0",
 		"lucide-svelte": "^0.441.0",
 		"mode-watcher": "^0.4.1",
 		"postgres": "^3.4.4",

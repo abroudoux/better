@@ -4,18 +4,18 @@ export type User = {
 	password: string;
 	email: string;
 	phone?: string;
-	created_at: string;
-	updated_at: string;
-	profile_picture?: string;
+	createdAt: string;
+	updatedAt: string;
+	profilePicture?: string;
 };
 
 export type Habit = {
 	id: string;
-	user_id: string;
+	userId: string;
 	title: string;
 	description?: string;
-	is_completed: boolean;
+	isCompleted: boolean;
 	points: number;
-	created_at: string;
-	updated_at: string;
+	createdAt: string;
+	updatedAt: string;
 };

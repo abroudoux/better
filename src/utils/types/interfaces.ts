@@ -1,7 +1,7 @@
-import type { ComponentType } from "svelte";
+import type { Component } from "svelte";
 
 export interface MenuItemSidebar {
 	label: string;
 	url: string;
-	icon: ComponentType;
+	icon: Component;
 }
