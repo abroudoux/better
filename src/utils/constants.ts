@@ -44,7 +44,7 @@ export const habitsTest: Habit[] = [
 		id: "2",
 		title: "Workout",
 		description: "Workout for 1 hour",
-		isCompleted: false,
+		isCompleted: true,
 		points: 10
 	},
 	{
@@ -65,7 +65,7 @@ export const habitsTest: Habit[] = [
 		id: "5",
 		title: "Sleep",
 		description: "Sleep for 8 hours",
-		isCompleted: false,
+		isCompleted: true,
 		points: 10
 	}
 ];
