@@ -5,10 +5,10 @@
 	export let number: number = 1;
 </script>
 
-<Item class="md:basis-1/2 lg:basis-1/3">
+<Item class="md:basis-1/4 lg:basis-1/7">
 	<div class="p-1">
-		<Root>
-			<Content class="flex aspect-square items-center justify-center p-6">
+		<Root class="h-16">
+			<Content class="flex aspect-square items-center justify-center p-6 h-16">
 				<span class="text-3xl font-semibold">{number}</span>
 			</Content>
 		</Root>

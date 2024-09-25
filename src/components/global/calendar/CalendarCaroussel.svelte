@@ -11,7 +11,7 @@
 	class="w-full"
 >
 	<Content>
-		{#each Array(5) as _, i (i)}
+		{#each Array(14) as _, i (i)}
 			<DayCardCalendar number={i + 1} />
 		{/each}
 	</Content>
