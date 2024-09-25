@@ -9,9 +9,13 @@
 </script>
 
 <ModeWatcher />
-<Header />
-<main class="w-screen h-screen flex flex-row items-start justify-between">
+
+<div class="layout">
+	<Header />
 	<Sidebar />
-	<slot />
-</main>
+	<main class="main">
+		<slot />
+	</main>
+</div>
+
 <Toaster />

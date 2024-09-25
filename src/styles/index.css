@@ -56,3 +56,32 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+.layout {
+	@apply grid grid-rows-[auto,1fr] grid-cols-[auto,1fr] h-screen overflow-hidden;
+
+	grid-template-areas:
+		"header header"
+		"sidebar main";
+}
+
+.header {
+	@apply top-0 left-0 w-full h-16 fixed z-20;
+
+	grid-area: header;
+}
+
+.sidebar {
+	@apply top-16 left-0 w-64 fixed z-10;
+
+	grid-area: sidebar;
+	height: calc(100vh - 60px);
+}
+
+.main {
+	grid-area: main;
+	margin-left: 250px;
+	margin-top: 60px;
+	overflow-y: auto;
+	padding: 20px;
+}
