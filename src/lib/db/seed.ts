@@ -7,17 +7,17 @@ async function main() {
 		data: {
 			email: "arthur.broudoux@gmail.com",
 			name: "Arthur Broudoux",
-			first_name: "Arthur",
+			firstName: "Arthur",
 			phone: "",
 			password: "password123",
-			is_admin: true
+			isAdmin: true
 		}
 	});
 
 	const habit = await prisma.habit.create({
 		data: {
 			name: "Morning Exercise",
-			user_id: admin.id
+			userId: admin.id
 		}
 	});
 

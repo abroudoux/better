@@ -1,7 +1,8 @@
 <script lang="ts">
+	import SectionHabits from "$components/habits/SectionHabits.svelte";
 	import Section from "$components/layouts/Section.svelte";
 </script>
 
 <Section>
-	<h1>Dashboard</h1>
+	<SectionHabits />
 </Section>
