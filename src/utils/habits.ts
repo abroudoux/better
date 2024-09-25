@@ -1,6 +1,6 @@
 import type { Habit } from "$utils/types/entities";
 
-export function getProgressHabits(habits: Habit[]): number {
+export function getProgressHabits(habits: Habit[]) {
 	const completedHabits = habits.reduce((acc, habit) => {
 		return habit.isCompleted ? acc + 1 : acc;
 	}, 0);
