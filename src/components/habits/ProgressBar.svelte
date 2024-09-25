@@ -9,4 +9,6 @@
 	let progress = getProgressHabits(habits);
 </script>
 
-<Progress value={progress} />
+<div class="my-2">
+	<Progress value={progress} />
+</div>

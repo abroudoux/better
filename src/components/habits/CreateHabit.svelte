@@ -14,7 +14,7 @@
 </script>
 
 <Root>
-	<Trigger class={buttonVariants({ variant: "default" })}>Create habit</Trigger>
+	<Trigger class={buttonVariants({ variant: "default" })}>Next step</Trigger>
 	<Content class="sm:max-w-[425px]">
 		<Header>
 			<Title>Create an habit</Title>
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<Footer>
-			<Button type="submit">Create habit</Button>
+			<Button type="submit">Next step</Button>
 		</Footer>
 	</Content>
 </Root>
