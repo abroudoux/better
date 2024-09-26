@@ -1,10 +1,8 @@
 export type User = {
 	id: string;
-	firstName: string;
 	name: string;
 	password: string;
 	email: string;
-	username?: string;
 	isAdmin: boolean;
 	createdAt: string;
 	updatedAt: string;

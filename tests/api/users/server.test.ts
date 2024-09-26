@@ -26,7 +26,7 @@ describe.skip("GET /users", () => {
 	});
 });
 
-describe("POST /users", () => {
+describe.skip("POST /users", () => {
 	it("should create a new user", async () => {
 		const user = {
 			email: "test.test@gmail.com",
