@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "$lib/db/prisma";
 
 async function main() {
 	const admin = await prisma.user.create({
@@ -8,7 +6,6 @@ async function main() {
 			email: "arthur.broudoux@gmail.com",
 			name: "Arthur Broudoux",
 			firstName: "Arthur",
-			phone: "",
 			password: "password123",
 			isAdmin: true
 		}

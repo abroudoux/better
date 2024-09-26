@@ -6,49 +6,12 @@
 	import { Input } from "$lib/components/ui/input/index";
 	import { Label } from "$lib/components/ui/label/index";
 
-	import { registerUser } from "$services/auth.services";
-	import type { User } from "$utils/types/entities";
-	import type { RegisterUser } from "$utils/types/queries";
-
-	let newUser: RegisterUser = {
-		firstName: "",
-		name: "",
-		email: "",
-		password: ""
-	};
 	let isLoading: boolean = false;
-	let isOpen: boolean = false;
-	let error: string | null = null;
-	let createdUser: User | null = null;
-
-	async function handleRegisterUser() {
-		isLoading = true;
-		error = null;
-		createdUser = null;
-
-		const result = await registerUser(newUser);
-
-		if (result.error) {
-			error = result.error;
-			toast.error(error);
-		} else if (result.data) {
-			createdUser = result.data;
-			newUser = { firstName: "", name: "", email: "", password: "" };
-			isOpen = false;
-
-			await invalidate("/");
-			await goto("/");
-
-			toast.success("User created successfully");
-		}
-
-		isLoading = false;
-	}
 </script>
 
 <div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
 	<div class="flex items-center justify-center py-12">
-		<form class="mx-auto grid w-[350px] gap-6" on:submit|preventDefault={handleRegisterUser}>
+		<form class="mx-auto grid w-[350px] gap-6">
 			<div class="grid gap-2 text-center">
 				<h1 class="text-3xl font-bold">Register</h1>
 				<p class="text-muted-foreground text-balance">Start your journey with us today</p>

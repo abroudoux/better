@@ -35,36 +35,31 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 export const habitsTest: Habit[] = [
 	{
 		id: "1",
-		title: "Read",
-		description: "Read a book for 30 minutes",
+		name: "Read a book for 30 minutes",
 		isCompleted: false,
 		points: 10
 	},
 	{
 		id: "2",
-		title: "Workout",
-		description: "Workout for 1 hour",
+		name: "Workout for 1 hour",
 		isCompleted: true,
 		points: 10
 	},
 	{
 		id: "3",
-		title: "Meditate",
-		description: "Meditate for 15 minutes",
+		name: "Meditate for 15 minutes",
 		isCompleted: true,
 		points: 10
 	},
 	{
 		id: "4",
-		title: "Drikn water",
-		description: "Drink 2 liters of water",
+		name: "Drink 2 liters of water",
 		isCompleted: false,
 		points: 10
 	},
 	{
 		id: "5",
-		title: "Sleep",
-		description: "Sleep for 8 hours",
+		name: "Sleep for 8 hours",
 		isCompleted: true,
 		points: 10
 	}

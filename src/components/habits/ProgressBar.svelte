@@ -13,7 +13,7 @@
 </script>
 
 <div class="my-2">
-	<p class={`text-right text-s py-4 ${habitsAllCompleted ? "text-green-500" : "text-primary"}`}>
+	<p class={`text-right text-sm py-4 ${habitsAllCompleted ? "text-green-500" : "text-primary"}`}>
 		{habitsCompleted} / {habitsCount}
 	</p>
 	<Progress value={progress} />

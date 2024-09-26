@@ -46,7 +46,7 @@
 					<Trash size="18" />
 				{/if}
 				<div>
-					<h3 class="text-sm">{habit.description}</h3>
+					<h3 class="text-sm">{habit.name}</h3>
 				</div>
 			</Button>
 		</Trigger>

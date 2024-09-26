@@ -5,8 +5,6 @@ export type User = {
 	password: string;
 	email: string;
 	username?: string;
-	phone?: string;
-	profilePicture?: string;
 	isAdmin: boolean;
 	createdAt: string;
 	updatedAt: string;
@@ -14,8 +12,7 @@ export type User = {
 
 export type Habit = {
 	id: string;
-	title: string;
-	description?: string;
+	name: string;
 	isCompleted: boolean;
 	points: number;
 };

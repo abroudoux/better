@@ -14,7 +14,8 @@ const config = {
 			$stores: "./src/stores",
 			$utils: "./src/utils",
 			$styles: "./src/styles",
-			$services: "./src/services"
+			$services: "./src/services",
+			$api: "src/routes/api"
 		}
 	}
 };
