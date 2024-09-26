@@ -13,6 +13,7 @@ export type Habit = {
 	name: string;
 	isCompleted: boolean;
 	points: number;
+	userId?: string;
 };
 
 export type Book = {

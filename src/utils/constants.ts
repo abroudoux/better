@@ -37,30 +37,35 @@ export const habitsTest: Habit[] = [
 		id: "1",
 		name: "Read a book for 30 minutes",
 		isCompleted: false,
-		points: 10
+		points: 10,
+		userId: "1"
 	},
 	{
 		id: "2",
 		name: "Workout for 1 hour",
 		isCompleted: true,
-		points: 10
+		points: 10,
+		userId: "1"
 	},
 	{
 		id: "3",
 		name: "Meditate for 15 minutes",
 		isCompleted: true,
-		points: 10
+		points: 10,
+		userId: "1"
 	},
 	{
 		id: "4",
 		name: "Drink 2 liters of water",
 		isCompleted: false,
-		points: 10
+		points: 10,
+		userId: "1"
 	},
 	{
 		id: "5",
 		name: "Sleep for 8 hours",
 		isCompleted: true,
-		points: 10
+		points: 10,
+		userId: "1"
 	}
 ];

@@ -1,32 +1,9 @@
-import prisma from "$lib/db/prisma";
+import "dotenv/config";
 
-async function main() {
-	const admin = await prisma.user.create({
-		data: {
-			email: "arthur.broudoux@gmail.com",
-			name: "Arthur Broudoux",
-			firstName: "Arthur",
-			password: "password123",
-			isAdmin: true
-		}
-	});
+import { db, connection } from "$lib/db/client";
+import { habits } from "$lib/db/schema";
+import { habitsTest } from "$utils/constants";
 
-	const habit = await prisma.habit.create({
-		data: {
-			name: "Morning Exercise",
-			userId: admin.id
-		}
-	});
+await db.insert(habits).values(habitsTest).execute();
 
-	console.log("Seeding finished.");
-}
-
-main()
-	.then(async () => {
-		await prisma.$disconnect();
-	})
-	.catch(async (e) => {
-		console.error(e);
-		await prisma.$disconnect();
-		process.exit(1);
-	});
+await connection.end();
