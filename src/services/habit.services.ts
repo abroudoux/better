@@ -1,4 +1,5 @@
 import type { Habit } from "$utils/types/entities";
+import type { HabitRequest } from "$utils/types/services";
 
 export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]> {
 	try {
@@ -15,14 +16,14 @@ export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]>
 	}
 }
 
-export async function postHabit(fetch: typeof global.fetch, nameHabit: string): Promise<Habit> {
+export async function postHabit(fetch: typeof global.fetch, habit: HabitRequest): Promise<Habit> {
 	try {
 		const response = await fetch("/api/habits", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ name: nameHabit })
+			body: JSON.stringify({ name: habit.name })
 		});
 
 		if (!response.ok) throw new Error("Failed to create habit");

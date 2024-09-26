@@ -13,12 +13,14 @@
 	let isLoading: boolean = true;
 	let habits: Habit[] = [];
 
-	onMount(() => {
+	$: if (!data.habits) {
+		isLoading = true;
+	} else {
 		setTimeout(() => {
-			habits = data.habits ?? [];
+			habits = data.habits;
 			isLoading = false;
-		}, 50);
-	});
+		}, 100);
+	}
 </script>
 
 <Section>
