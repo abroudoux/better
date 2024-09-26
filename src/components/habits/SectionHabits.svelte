@@ -24,5 +24,7 @@
 		<div class="mt-auto">
 			<ProgressBar {habits} />
 		</div>
+	{:else}
+		<p class="text-gray-500">No habits yet</p>
 	{/if}
 </section>

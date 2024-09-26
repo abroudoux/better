@@ -17,6 +17,7 @@
 
 	import type { Habit } from "$utils/types/entities";
 	import { manageHabits } from "$stores/habits";
+	import { toggleHabitStatus } from "$services/habit.services";
 
 	export let habit: Habit;
 
@@ -27,6 +28,7 @@
 	function toggleHabit(event: MouseEvent) {
 		const target = event.target as HTMLElement;
 		if (target.tagName === "INPUT") return;
+		toggleHabitStatus(habit.id);
 		isCompleted = !isCompleted;
 	}
 </script>

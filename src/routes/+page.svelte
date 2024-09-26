@@ -15,7 +15,7 @@
 
 	onMount(() => {
 		setTimeout(() => {
-			habits = data.habits;
+			habits = data.habits ?? [];
 			isLoading = false;
 		}, 50);
 	});

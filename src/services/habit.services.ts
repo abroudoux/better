@@ -1,11 +1,46 @@
 import type { Habit } from "$utils/types/entities";
-import { db } from "$lib/db/client";
-import { habits } from "$lib/db/schema";
 
-export async function getAllHabits(): Promise<Habit[]> {
-	const result = await db.query.habits.findMany();
+export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]> {
+	try {
+		const response = await fetch("/api/habits");
 
-	return result as Habit[];
+		if (!response.ok) throw new Error("Failed to fetch habits");
+
+		const { habits } = await response.json();
+
+		return habits as Habit[];
+	} catch (error: any) {
+		console.error(error.message);
+		throw new Error("Failed during getAllHabits service");
+	}
 }
 
-export async function toggleHabitStatus(habitId: string) {}
+export async function getHabitById(habitId: string): Promise<Habit | null> {
+	try {
+		const response = await fetch(`/api/habits/${habitId}`);
+
+		if (!response.ok) throw new Error("Failed to fetch habit");
+
+		const habit = await response.json();
+
+		return habit as Habit;
+	} catch (error: any) {
+		console.error(error.message);
+		throw new Error("Failed during getHabitById service");
+	}
+}
+
+export async function toggleHabitStatus(habitId: string) {
+	try {
+		const response = await fetch(`/api/habits/${habitId}`, {
+			method: "PUT"
+		});
+
+		if (!response.ok) throw new Error("Failed to toggle habit status");
+
+		return true;
+	} catch (error: any) {
+		console.error(error.message);
+		throw new Error("Failed during toggleHabitStatus service");
+	}
+}
