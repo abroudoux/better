@@ -8,7 +8,13 @@ import { habits } from "$lib/db/schema";
 export const GET: RequestHandler = async () => {
 	try {
 		const habits = await db.query.habits.findMany();
-		return json({ habits }, { status: 200 });
+
+		return new Response(JSON.stringify(habits), {
+			status: 200,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
 	} catch (error: any) {
 		console.error("Error fetching habits:", error);
 		return json({ message: "Internal Server Error" }, { status: 500 });
@@ -27,9 +33,19 @@ export const POST: RequestHandler = async ({ request }) => {
 		};
 		const habit = await db.insert(habits).values(newHabit).execute();
 
-		return json({ newHabit }, { status: 201 });
+		return new Response(JSON.stringify(newHabit), {
+			status: 201,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
 	} catch (error: any) {
 		console.error("Error creating habit:", error);
-		return json({ message: "Internal Server Error" }, { status: 500 });
+		return new Response(JSON.stringify({ message: "Internal Server Error" }), {
+			status: 500,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
 	}
 };

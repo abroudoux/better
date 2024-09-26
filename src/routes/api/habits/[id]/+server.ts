@@ -10,6 +10,9 @@ export async function GET({ params, request }: RequestEvent) {
 		const habit = await db.query.habits.findFirst({
 			where: eq(habits.id, params.id)
 		});
+
+		if (!habit) return json({ error: "Habit not found" }, { status: 404 });
+
 		return json({ habit }, { status: 200 });
 	} catch (error: any) {
 		console.error("Error fetching habit:", error);

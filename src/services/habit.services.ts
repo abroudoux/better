@@ -6,9 +6,9 @@ export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]>
 
 		if (!response.ok) throw new Error("Failed to fetch habits");
 
-		const habits = await response.json();
+		const habits: Habit[] = await response.json();
 
-		return habits as Habit[];
+		return habits;
 	} catch (error: any) {
 		console.error(error.message);
 		throw new Error("Failed during getAllHabits service");
@@ -36,7 +36,7 @@ export async function postHabit(fetch: typeof global.fetch, nameHabit: string): 
 	}
 }
 
-// export async function getHabitById(habitId: string): Promise<Habit | null> {
+// export async function getHabitById(habitId: string): Promise<Habit> {
 // 	try {
 // 		const response = await fetch(`/api/habits/${habitId}`);
 
@@ -48,6 +48,27 @@ export async function postHabit(fetch: typeof global.fetch, nameHabit: string): 
 // 	} catch (error: any) {
 // 		console.error(error.message);
 // 		throw new Error("Failed during getHabitById service");
+// 	}
+// }
+
+// export async function postHabit(fetch: typeof global.fetch, nameHabit: string): Promise<Habit> {
+// 	try {
+// 		const response = await fetch("/api/habits", {
+// 			method: "POST",
+// 			headers: {
+// 				"Content-Type": "application/json"
+// 			},
+// 			body: JSON.stringify({ name: nameHabit })
+// 		});
+
+// 		if (!response.ok) throw new Error("Failed to create habit");
+
+// 		const newHabit = await response.json();
+
+// 		return newHabit as Habit;
+// 	} catch (error: any) {
+// 		console.error(error.message);
+// 		throw new Error("Failed during postHabit service");
 // 	}
 // }
 
