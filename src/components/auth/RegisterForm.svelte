@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { goto, invalidate } from "$app/navigation";
-	import { toast } from "svelte-sonner";
-
 	import { Button } from "$lib/components/ui/button/index";
 	import { Input } from "$lib/components/ui/input/index";
 	import { Label } from "$lib/components/ui/label/index";

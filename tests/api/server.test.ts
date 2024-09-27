@@ -2,9 +2,26 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import { GET, POST } from "$api/habits/+server";
 import type { Habit } from "$utils/types/entities";
+import { db } from "$lib/db/client";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
+
+vi.mock("$lib/db", () => ({
+	db: {
+		query: {
+			habits: {
+				findMany: vi.fn()
+			}
+		}
+	}
+}));
+
+const mockEvent = {
+	request: new Request("http://localhost:5173/api/habits", {
+		method: "GET"
+	})
+};
 
 describe("Habits API endpoints", () => {
 	beforeEach(() => {
@@ -17,48 +34,81 @@ describe("Habits API endpoints", () => {
 				{ id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 },
 				{ id: "2", userId: "1", isCompleted: false, name: "Read a book", points: 10 }
 			];
-			const mockResponse: Habit[] = { ...habits };
 
-			mockFetch.mockResolvedValueOnce({
-				ok: true,
-				json: () => Promise.resolve(mockResponse),
-				status: 200
-			});
+			(db.query.habits.findMany as any).mockResolvedValueOnce(habits);
 
-			const result = await GET();
+			const response = await GET(mockEvent as any);
 
-			expect(result).toEqual({ habits });
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits");
-			expect(result.status).toBe(200);
-			expect(mockFetch).toHaveBeenCalledTimes(1);
+			expect(response.status).toBe(200);
+			const jsonResponse = await response.json();
+			expect(jsonResponse).toEqual(habits);
+
+			expect(db.query.habits.findMany).toHaveBeenCalledTimes(1);
+		});
+
+		it("should return 500 on database error", async () => {
+			(db.query.habits.findMany as any).mockRejectedValueOnce(new Error("DB error"));
+
+			const response = await GET(mockEvent as any);
+
+			expect(response.status).toBe(500);
+			const jsonResponse = await response.json();
+			expect(jsonResponse).toEqual({ message: "Internal Server Error" });
+			expect(db.query.habits.findMany).toHaveBeenCalledTimes(1);
 		});
 	});
 
 	describe.skip("POST /api/habits", () => {
 		it("should create a new habit", async () => {
-			const newHabit: Habit = {
-				id: "3",
+			const habit: Habit = {
+				id: "1",
 				userId: "1",
 				isCompleted: false,
-				name: "Exercise",
+				name: "Drink water",
 				points: 10
 			};
-			const mockResponse: Habit = { ...newHabit };
+			const newHabit = { name: "Drink water" };
 
-			mockFetch.mockResolvedValueOnce({
-				ok: true,
-				json: () => Promise.resolve(mockResponse),
-				status: 201
+			(db.insert as any).mockResolvedValueOnce({ values: vi.fn().mockResolvedValueOnce(habit) });
+
+			const mockRequest = new Request("http://localhost:5173/api/habits", {
+				method: "POST",
+				body: JSON.stringify(newHabit),
+				headers: {
+					"Content-Type": "application/json"
+				}
 			});
 
-			const result = await POST({
-				request: { json: () => Promise.resolve({ name: newHabit.name }) }
+			const response = await POST({ request: mockRequest } as any);
+
+			expect(response.status).toBe(201);
+			const jsonResponse = await response.json();
+			expect(jsonResponse).toEqual(habit);
+
+			expect(db.insert).toHaveBeenCalledTimes(1);
+			expect(db.insert).toHaveBeenCalledWith("habits");
+			expect(db.insert().values).toHaveBeenCalledTimes(1);
+			expect(db.insert().values).toHaveBeenCalledWith(newHabit);
+		});
+
+		it("should return 500 on database error", async () => {
+			(db.insert as any).mockRejectedValueOnce(new Error("DB error"));
+
+			const mockRequest = new Request("http://localhost:5173/api/habits", {
+				method: "POST",
+				body: JSON.stringify({ name: "Drink water" }),
+				headers: {
+					"Content-Type": "application/json"
+				}
 			});
 
-			expect(result).toEqual({ newHabit });
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits");
-			expect(result.status).toBe(201);
-			expect(mockFetch).toHaveBeenCalledTimes(1);
+			const response = await POST({ request: mockRequest } as any);
+
+			expect(response.status).toBe(500);
+			const jsonResponse = await response.json();
+			expect(jsonResponse).toEqual({ message: "Internal Server Error" });
+			expect(db.insert).toHaveBeenCalledTimes(1);
+			expect(db.insert).toHaveBeenCalledWith("habits");
 		});
 	});
 });
