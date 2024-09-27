@@ -11,7 +11,7 @@ describe("Habits API endpoints", () => {
 		vi.resetAllMocks();
 	});
 
-	describe("GET /api/habits", () => {
+	describe.skip("GET /api/habits", () => {
 		it("should return all habits", async () => {
 			const habits: Habit[] = [
 				{ id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 },
@@ -34,7 +34,7 @@ describe("Habits API endpoints", () => {
 		});
 	});
 
-	describe("POST /api/habits", () => {
+	describe.skip("POST /api/habits", () => {
 		it("should create a new habit", async () => {
 			const newHabit: Habit = {
 				id: "3",

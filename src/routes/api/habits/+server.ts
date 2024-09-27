@@ -1,5 +1,5 @@
 import { json } from "@sveltejs/kit";
-import type { RequestHandler } from "./$types";
+import type { RequestEvent, RequestHandler } from "./$types";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "$lib/db/client";
@@ -21,7 +21,7 @@ export const GET: RequestHandler = async () => {
 	}
 };
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
 		const { name } = await request.json();
 		const id = uuidv4().toString();
