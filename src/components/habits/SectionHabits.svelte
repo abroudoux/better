@@ -3,7 +3,6 @@
 	import CreateHabit from "$components/habits/CreateHabit.svelte";
 	import ManageHabitsToggle from "$components/habits/ManageHabitsToggle.svelte";
 	import ProgressBar from "$components/habits/ProgressBar.svelte";
-	import CalendarCaroussel from "$components/global/calendar/CalendarCaroussel.svelte";
 
 	import { habitsData } from "$stores/habits";
 	import type { Habit } from "$utils/types/entities";
@@ -12,7 +11,6 @@
 </script>
 
 <section class="flex flex-col gap-4 w-full h-full">
-	<!-- <CalendarCaroussel /> -->
 	<div class="w-full flex flex-row justify-between items-center">
 		<h2 class="text-2xl font-semibold">Habits</h2>
 		<div class="flex flex-row items-center gap-4">

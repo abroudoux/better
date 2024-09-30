@@ -13,7 +13,17 @@ export type Habit = {
 	name: string;
 	isCompleted: boolean;
 	points: number;
-	userId?: string;
+	userId: string;
+};
+
+export type Day = {
+	id: string;
+	date: string;
+	habits: string[];
+	numPoints: number;
+	numHabits: number;
+	numHabitCompleted: number;
+	percentage: number;
 };
 
 export type Book = {

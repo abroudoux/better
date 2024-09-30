@@ -23,7 +23,6 @@ export async function getHabitById(fetch: typeof global.fetch, id: string): Prom
 		if (!response.ok) throw new Error("Failed to fetch habit");
 
 		const habit: Habit = await response.json();
-		console.log(habit);
 
 		return habit;
 	} catch (error: any) {

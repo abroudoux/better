@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Progress } from "$lib/components/ui/progress";
+	import { toast } from "svelte-sonner";
 
 	import { habitsData } from "$stores/habits";
 	import type { Habit } from "$utils/types/entities";
@@ -10,6 +11,11 @@
 	$: habitsCompleted = habits.filter((h) => h.isCompleted).length;
 	$: habitsAllCompleted = habits.every((habit) => habit.isCompleted);
 	$: progress = habitsLength > 0 ? (habitsCompleted / habitsLength) * 100 : 0;
+	$: {
+		if (habitsAllCompleted) {
+			toast.success("Congratulations! You've completed all your daily habits");
+		}
+	}
 </script>
 
 <div class="my-2">

@@ -19,21 +19,24 @@ export const habits = pgTable("habits", {
 		.notNull()
 });
 
-export const sessions = pgTable("sessions", {
+export const days = pgTable("days", {
 	id: text("id").primaryKey().default("uuid_generate_v4()"),
-	userId: text("user_id")
-		.references(() => users.id, { onDelete: "cascade" })
-		.notNull()
+	date: text("date").notNull(),
+	habits: text("habits").array().default([]),
+	numPoints: integer("num_points").notNull().default(0),
+	numHabits: integer("num_habits").notNull().default(0),
+	numHabitCompleted: integer("num_habit_completed").notNull().default(0),
+	percentage: integer("percentage").notNull().default(0)
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-	habits: many(habits),
-	sessions: many(sessions)
+	habits: many(habits)
 }));
 
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-	user: one(users, {
-		fields: [sessions.userId],
-		references: [users.id]
-	})
+export const habitsRelations = relations(habits, ({ one }) => ({
+	user: one(users)
+}));
+
+export const daysRelations = relations(days, ({ many }) => ({
+	habits: many(habits)
 }));

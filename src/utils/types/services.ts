@@ -9,3 +9,8 @@ export type RegisterUser = Pick<User, "name" | "email" | "password">;
 export type LoginUser = Pick<User, "email" | "password">;
 
 export type HabitRequest = Pick<Habit, "name">;
+
+export type IsNewDayResponse = {
+	isNewDay: boolean;
+	dayId?: string | undefined;
+};
