@@ -20,9 +20,9 @@
 		"integration": "playwright test",
 		"test": "vitest",
 		"generate-migrations": "drizzle-kit generate",
-		"migrate": "tsx src/lib/db/migrate",
+		"migrate": "tsx src/lib/db/server/migrate",
 		"studio": "drizzle-kit studio",
-		"seed": "tsx src/lib/db/seed format"
+		"seed": "tsx src/lib/db/server/seed format"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.47.2",
@@ -56,6 +56,7 @@
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.33.0",
 		"embla-carousel-svelte": "^8.3.0",
+		"lucia": "^3.2.0",
 		"lucide-svelte": "^0.441.0",
 		"mode-watcher": "^0.4.1",
 		"postgres": "^3.4.4",

@@ -3,17 +3,8 @@
 
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import Button from "$lib/components/ui/button/button.svelte";
-	import {
-		Root,
-		Trigger,
-		Content,
-		Header,
-		Footer,
-		Cancel,
-		Action,
-		Title,
-		Description
-	} from "$lib/components/ui/alert-dialog";
+	import { Root, Trigger } from "$lib/components/ui/alert-dialog";
+	import DeleteHabit from "$components/habits/DeleteHabit.svelte";
 
 	import type { Habit } from "$utils/types/entities";
 	import { manageHabits } from "$stores/habits";
@@ -26,6 +17,7 @@
 
 	// TODO: fix
 	function toggleHabit(event: MouseEvent) {
+		if (isManagingHabits) return;
 		const target = event.target as HTMLElement;
 		if (target.tagName === "INPUT") return;
 		toggleHabitStatus(fetch, habit.id);
@@ -53,18 +45,7 @@
 			</Button>
 		</Trigger>
 		{#if isManagingHabits}
-			<Content>
-				<Header>
-					<Title>Delete this habit?</Title>
-					<Description>
-						This habit will be delete from your daily goals. You can always add it back later.
-					</Description>
-				</Header>
-				<Footer>
-					<Cancel>Cancel</Cancel>
-					<Action>Delete Habit</Action>
-				</Footer>
-			</Content>
+			<DeleteHabit {habit} />
 		{/if}
 	</Root>
 </li>

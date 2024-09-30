@@ -28,6 +28,7 @@
 	async function handleCreateHabit() {
 		isLoading = true;
 		const result = await postHabit(fetch, newHabit);
+		console.log(result);
 		isOpen = false;
 		newHabit = { name: "" };
 

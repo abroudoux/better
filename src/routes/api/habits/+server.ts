@@ -2,8 +2,8 @@ import { json } from "@sveltejs/kit";
 import type { RequestEvent, RequestHandler } from "./$types";
 import { v4 as uuidv4 } from "uuid";
 
-import { db } from "$lib/db/client";
-import { habits } from "$lib/db/schema";
+import { db } from "$lib/db/server/client";
+import { habits } from "$lib/db/server/schema";
 
 export const GET: RequestHandler = async () => {
 	try {

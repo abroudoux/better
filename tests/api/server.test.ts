@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import { GET, POST } from "$api/habits/+server";
 import type { Habit } from "$utils/types/entities";
-import { db } from "$lib/db/client";
+import { db } from "$lib/db/server/client";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;

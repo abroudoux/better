@@ -2,8 +2,8 @@ import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import type { RequestEvent, RequestHandler } from "./$types";
 
-import { db } from "$lib/db/client";
-import { habits } from "$lib/db/schema";
+import { db } from "$lib/db/server/client";
+import { habits } from "$lib/db/server/schema";
 
 export const GET: RequestHandler = async ({ request, params }: RequestEvent) => {
 	try {
