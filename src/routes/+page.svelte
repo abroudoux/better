@@ -6,17 +6,17 @@
 	import Loader from "$components/global/Loader.svelte";
 
 	import type { Habit } from "$utils/types/entities";
+	import { habitsData } from "$stores/habits";
 
 	export let data: PageData;
 
 	let isLoading: boolean = true;
-	let habits: Habit[] = [];
 
 	$: if (!data.habits) {
 		isLoading = true;
 	} else {
 		setTimeout(() => {
-			habits = data.habits;
+			habitsData.set(data.habits);
 			isLoading = false;
 		}, 100);
 	}
@@ -26,6 +26,6 @@
 	{#if isLoading}
 		<Loader />
 	{:else}
-		<SectionHabits {habits} />
+		<SectionHabits />
 	{/if}
 </Section>

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Progress } from "$lib/components/ui/progress";
 
+	import { habitsData } from "$stores/habits";
 	import type { Habit } from "$utils/types/entities";
 
-	export let habits: Habit[] = [];
+	$: habits = $habitsData as Habit[];
 
 	$: habitsLength = habits.length;
 	$: habitsCompleted = habits.filter((h) => h.isCompleted).length;

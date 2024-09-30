@@ -5,9 +5,10 @@
 	import ProgressBar from "$components/habits/ProgressBar.svelte";
 	import CalendarCaroussel from "$components/global/calendar/CalendarCaroussel.svelte";
 
+	import { habitsData } from "$stores/habits";
 	import type { Habit } from "$utils/types/entities";
 
-	export let habits: Habit[] = [];
+	$: habits = $habitsData as Habit[];
 </script>
 
 <section class="flex flex-col gap-4 w-full h-full">
@@ -20,9 +21,9 @@
 		</div>
 	</div>
 	{#if habits.length > 0}
-		<ListHabits {habits} />
+		<ListHabits />
 		<div class="mt-auto">
-			<ProgressBar {habits} />
+			<ProgressBar />
 		</div>
 	{:else}
 		<p class="text-gray-500">No habits yet</p>

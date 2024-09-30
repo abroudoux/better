@@ -7,7 +7,7 @@
 	import DeleteHabit from "$components/habits/DeleteHabit.svelte";
 
 	import type { Habit } from "$utils/types/entities";
-	import { manageHabits } from "$stores/habits";
+	import { manageHabits, habitsData } from "$stores/habits";
 	import { toggleHabitStatus } from "$services/habit.services";
 
 	export let habit: Habit;
@@ -18,9 +18,20 @@
 	// TODO: fix
 	function toggleHabit(event: MouseEvent) {
 		if (isManagingHabits) return;
+
 		const target = event.target as HTMLElement;
 		if (target.tagName === "INPUT") return;
-		toggleHabitStatus(fetch, habit.id);
+
+		toggleHabitStatus(fetch, habit.id).then(() => {
+			habitsData.update((habits) => {
+				const index = habits.findIndex((h) => h.id === habit.id);
+				if (index !== -1) {
+					habits[index].isCompleted = !habits[index].isCompleted;
+				}
+				return habits;
+			});
+		});
+
 		isCompleted = !isCompleted;
 	}
 </script>
