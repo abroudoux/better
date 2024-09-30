@@ -4,8 +4,6 @@ export type User = {
 	password: string;
 	email: string;
 	isAdmin: boolean;
-	createdAt: string;
-	updatedAt: string;
 };
 
 export type Habit = {

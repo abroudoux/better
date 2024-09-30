@@ -42,7 +42,6 @@ describe("Habits API endpoints", () => {
 			expect(response.status).toBe(200);
 			const jsonResponse = await response.json();
 			expect(jsonResponse).toEqual(habits);
-
 			expect(db.query.habits.findMany).toHaveBeenCalledTimes(1);
 		});
 
