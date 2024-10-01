@@ -24,36 +24,8 @@ export type Day = {
 	percentage: number;
 };
 
-export type Book = {
+export type StepRecipie = {
 	id: string;
-	title: string;
-	author: string;
-	review?: string;
-	status: "read" | "reading" | "want to read";
-	externalLink?: string;
-	createdAt: string;
-	updatedAt: string;
-};
-
-export type Recipie = {
-	id: string;
-	title: string;
-	description?: string;
-	ingredients: string[];
-	steps: string[];
-	externalLink?: string;
-	comment?: string;
-	createdAt: string;
-	updatedAt: string;
-};
-
-export type Learning = {
-	id: string;
-	title: string;
-	exercies: string[];
-	externalLink?: string;
-	comment?: string;
-	status: "done" | "doing";
-	createdAt: string;
-	updatedAt: string;
+	recipieId: string;
+	step: string;
 };

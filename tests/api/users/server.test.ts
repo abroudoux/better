@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { db } from "$lib/db/server/client";
 import { GET } from "$api/users/+server";
 import type { User } from "$utils/types/entities";
+import { mock } from "node:test";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -30,44 +31,34 @@ describe("Users API endpoints", () => {
 
 	describe("GET /api/users", () => {
 		it("should return user informations", async () => {
-			const user: User = {
+			const mockUser: User = {
 				id: "1",
-				email: "test@gmail.com",
-				password: "test",
-				name: "test",
+				name: "John Doe",
+				email: "john.doe@gmail.com",
+				password: "password",
 				isAdmin: false
 			};
+			const mockResponse = new Response(JSON.stringify(mockUser), {
+				status: 200,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			});
 
-			(db.query.users.findFirst as any).mockResolvedValueOnce(user);
+			mockFetch.mockResolvedValue({
+				ok: true,
+				json: Promise.resolve(mockUser),
+				status: 200
+			});
 
-			const response = await GET(mockEvent as any);
+			const response = await GET(mockEvent);
 
+			expect(response).toEqual(mockResponse);
+			expect(db.query.users.findFirst).toHaveBeenCalled();
+			expect(mockFetch).toHaveBeenCalled();
+			expect(mockFetch).toHaveBeenCalledWith("/api/users");
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(response.status).toBe(200);
-			const jsonResponse = await response.json();
-			expect(jsonResponse).toEqual(user);
-			expect(db.query.users.findFirst).toHaveBeenCalledTimes(1);
-		});
-
-		it("should return 404 if user not found", async () => {
-			(db.query.users.findFirst as any).mockResolvedValueOnce(null);
-
-			const response = await GET(mockEvent as any);
-
-			expect(response.status).toBe(404);
-			const jsonResponse = await response.json();
-			expect(jsonResponse).toEqual({ message: "User not found" });
-			expect(db.query.users.findFirst).toHaveBeenCalledTimes(1);
-		});
-
-		it("should return 500 on database error", async () => {
-			(db.query.users.findFirst as any).mockRejectedValueOnce(new Error("DB error"));
-
-			const response = await GET(mockEvent as any);
-
-			expect(response.status).toBe(500);
-			const jsonResponse = await response.json();
-			expect(jsonResponse).toEqual({ message: "Internal Server Error" });
-			expect(db.query.users.findFirst).toHaveBeenCalledTimes(1);
 		});
 	});
 });

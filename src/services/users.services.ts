@@ -1,6 +1,6 @@
 import type { User } from "$utils/types/entities";
 
-export async function getUserInformations(fetch: typeof global.fetch): Promise<User> {
+export async function getUser(fetch: typeof global.fetch): Promise<User> {
 	try {
 		const response = await fetch("/api/users");
 

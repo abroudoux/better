@@ -2,4 +2,4 @@
 	import Section from "$components/layouts/Section.svelte";
 </script>
 
-<Section>Learnings</Section>
+<Section>Recipies</Section>
