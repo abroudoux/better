@@ -10,9 +10,6 @@ export async function manageDay() {
 	const response = await isNewDay(fetch);
 	const habits: Habit[] = await getAllHabits(fetch);
 
-	//! DEBUG
-	console.log(habits);
-
 	if (response.isNewDay) {
 		const newDay = await createNewDay(fetch, habits);
 		return newDay;

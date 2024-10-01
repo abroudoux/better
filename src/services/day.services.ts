@@ -13,10 +13,6 @@ export async function isNewDay(fetch: typeof global.fetch): Promise<IsNewDayResp
 		const isNewDay = result.isNewDay;
 		const dayId = result.today?.id;
 
-		//! DEBUG
-		console.log("Is new day:", isNewDay);
-		console.log("Day ID:", dayId);
-
 		return {
 			isNewDay,
 			dayId

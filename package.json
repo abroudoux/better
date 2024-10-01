@@ -19,10 +19,10 @@
 		"format": "prettier --write .",
 		"integration": "playwright test",
 		"test": "vitest",
-		"generate-migrations": "drizzle-kit generate",
+		"generate": "drizzle-kit generate",
 		"migrate": "tsx src/lib/db/server/migrate",
 		"studio": "drizzle-kit studio",
-		"seed": "tsx src/lib/db/server/seed format"
+		"seed": "tsx src/lib/db/server/seed"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.47.2",

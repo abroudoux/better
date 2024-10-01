@@ -5,7 +5,7 @@ import { db } from "$lib/db/server/client";
 
 export const GET: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
-		const user = await db.query.users.findFirst();
+		const user = await db.query.usersTable.findFirst();
 
 		if (!user) return json({ message: "User not found" }, { status: 404 });
 

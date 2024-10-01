@@ -1,17 +1,14 @@
-version: "3.9"
+version: "3"
 services:
-  better-db:
-    image: postgres:16
-    restart: always
-    container_name: better-db
-    ports:
-      - 5432:5432
+  postgres:
+    image: postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
-      PGDATA: /data/postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
     volumes:
-      - postgres:/data/postgres
-
+      - postgres_data:/var/lib/postgresql/data
 volumes:
-  postgres:
+  postgres_data:

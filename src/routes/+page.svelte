@@ -5,7 +5,6 @@
 	import Section from "$components/layouts/Section.svelte";
 	import Loader from "$components/global/Loader.svelte";
 
-	import type { Habit } from "$utils/types/entities";
 	import { habitsData } from "$stores/habits";
 
 	export let data: PageData;

@@ -3,15 +3,15 @@ import { eq } from "drizzle-orm";
 import { json } from "@sveltejs/kit";
 
 import { db } from "$lib/db/server/client";
-import { days } from "$lib/db/server/schema";
+import { daysTable } from "$lib/db/server/schema";
 
 import type { Habit } from "$utils/types/entities";
 
 export const GET: RequestHandler = async () => {
 	try {
 		const now: string = new Date().toISOString().slice(0, 10);
-		const day = await db.query.days.findFirst({
-			where: eq(days.date, now)
+		const day = await db.query.daysTable.findFirst({
+			where: eq(daysTable.date, now)
 		});
 
 		if (!day) {
@@ -45,8 +45,8 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 		if (!params.id)
 			return new Response(JSON.stringify({ error: "Day ID is missing" }), { status: 400 });
 
-		const day = await db.query.days.findFirst({
-			where: eq(days.id, params.id)
+		const day = await db.query.daysTable.findFirst({
+			where: eq(daysTable.id, params.id)
 		});
 
 		if (!day) return new Response(JSON.stringify({ error: "Day not found" }), { status: 404 });
@@ -59,12 +59,14 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 			});
 		}
 
-		const habitIds = habits.map((habit) => habit.id);
+		const habitsLength: number = habits.length;
+		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
+		const percentage: number = (habitsCompleted / habitsLength) * 100;
 
 		const updatedDay = await db
-			.update(days)
-			.set({ habits: habitIds })
-			.where(eq(days.id, params.id))
+			.update(daysTable)
+			.set({ habits: habitsLength, habitsCompleted, percentage })
+			.where(eq(daysTable.id, params.id))
 			.execute();
 
 		return new Response(JSON.stringify(updatedDay), {

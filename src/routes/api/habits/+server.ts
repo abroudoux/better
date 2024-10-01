@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import type { RequestEvent, RequestHandler } from "./$types";
 
 import { db } from "$lib/db/server/client";
-import { habits } from "$lib/db/server/schema";
+import { habitsTable } from "$lib/db/server/schema";
 
 export const GET: RequestHandler = async () => {
 	try {
-		const habits = await db.query.habits.findMany();
+		const habits = await db.query.habitsTable.findMany();
 
 		return new Response(JSON.stringify(habits), {
 			status: 200,
@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 			isCompleted: false,
 			name
 		};
-		const habit = await db.insert(habits).values(newHabit).execute();
+		const habit = await db.insert(habitsTable).values(newHabit).execute();
 
 		return new Response(JSON.stringify(newHabit), {
 			status: 201,
