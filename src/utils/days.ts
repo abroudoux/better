@@ -12,6 +12,9 @@ export async function manageDay() {
 
 	if (response.isNewDay) {
 		const newDay = await createNewDay(fetch, habits);
+		for (const habit of habits) {
+			habit.isCompleted = false;
+		}
 		return newDay;
 	} else if (response.dayId) {
 		const editedDay = await editDay(fetch, response.dayId, habits);
