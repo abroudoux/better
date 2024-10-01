@@ -63,11 +63,15 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
 		const percentage: number = (habitsCompleted / habitsLength) * 100;
 
-		const updatedDay = await db
+		await db
 			.update(daysTable)
 			.set({ habits: habitsLength, habitsCompleted, percentage })
 			.where(eq(daysTable.id, params.id))
 			.execute();
+
+		const updatedDay = await db.query.daysTable.findFirst({
+			where: eq(daysTable.id, params.id)
+		});
 
 		return new Response(JSON.stringify(updatedDay), {
 			status: 200,
@@ -76,7 +80,7 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 			}
 		});
 	} catch (error: any) {
-		console.error("Error fetching habit:", error);
-		return json({ message: "Iternal Server Error" }, { status: 500 });
+		console.error("Error updating day:", error);
+		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };

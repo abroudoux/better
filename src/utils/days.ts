@@ -1,4 +1,4 @@
-import { isNewDay, createNewDay, editDay } from "$services/day.services";
+import { isNewDay, createNewDay, editDay } from "$services/days.services";
 import { getAllHabits } from "$services/habit.services";
 import type { Habit } from "$utils/types/entities";
 
@@ -15,7 +15,6 @@ export async function manageDay() {
 		return newDay;
 	} else if (response.dayId) {
 		const editedDay = await editDay(fetch, response.dayId, habits);
-		console.log(editedDay);
 		return editedDay;
 	}
 }

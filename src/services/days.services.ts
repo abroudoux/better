@@ -62,7 +62,6 @@ export async function editDay(
 		if (!response.ok) throw new Error("Failed to edit day");
 
 		const editedDay = await response.json();
-		console.log("Day edited:", editedDay);
 
 		return editedDay as Day;
 	} catch (error: any) {
