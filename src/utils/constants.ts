@@ -2,7 +2,7 @@ import type { SvelteComponent } from "svelte";
 import { House, Library, User, Medal, Salad } from "lucide-svelte";
 
 import type { MenuItemSidebar } from "$utils/types/interfaces";
-import type { Habit } from "$utils/types/entities";
+import type { Habit, Training } from "$utils/types/entities";
 
 export const menuItemsSidebar: MenuItemSidebar[] = [
 	{
@@ -32,40 +32,41 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 	}
 ];
 
-export const habitsTest: Habit[] = [
+export const trainingsDataTest: Training[] = [
 	{
 		id: "1",
-		name: "Read a book for 30 minutes",
-		isCompleted: false,
-		points: 10,
-		userId: "1"
+		name: "Chest",
+		exercises: [
+			{
+				id: "1",
+				name: "Bench Press",
+				sets: 4,
+				reps: 12
+			},
+			{
+				id: "2",
+				name: "Incline Bench Press",
+				sets: 4,
+				reps: 12
+			}
+		]
 	},
 	{
 		id: "2",
-		name: "Workout for 1 hour",
-		isCompleted: true,
-		points: 10,
-		userId: "1"
-	},
-	{
-		id: "3",
-		name: "Meditate for 15 minutes",
-		isCompleted: true,
-		points: 10,
-		userId: "1"
-	},
-	{
-		id: "4",
-		name: "Drink 2 liters of water",
-		isCompleted: false,
-		points: 10,
-		userId: "1"
-	},
-	{
-		id: "5",
-		name: "Sleep for 8 hours",
-		isCompleted: true,
-		points: 10,
-		userId: "1"
+		name: "Back",
+		exercises: [
+			{
+				id: "1",
+				name: "Deadlift",
+				sets: 4,
+				reps: 12
+			},
+			{
+				id: "2",
+				name: "Pull Ups",
+				sets: 4,
+				reps: 12
+			}
+		]
 	}
 ];

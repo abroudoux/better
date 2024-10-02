@@ -2,7 +2,7 @@
 	import { Progress } from "$lib/components/ui/progress";
 	import { toast } from "svelte-sonner";
 
-	import { habitsData } from "$stores/habits";
+	import { habitsData } from "$stores/habit.store";
 	import type { Habit } from "$utils/types/entities";
 
 	$: habits = $habitsData as Habit[];
@@ -13,7 +13,9 @@
 	$: progress = habitsLength > 0 ? (habitsCompleted / habitsLength) * 100 : 0;
 	$: {
 		if (habitsAllCompleted) {
-			toast.success("Congratulations! You've completed all your daily habits");
+			toast.success(
+				"Congratulations! You've completed all your daily habits! Determine your next challenge."
+			);
 		}
 	}
 </script>

@@ -1,9 +1,11 @@
 import { json } from "@sveltejs/kit";
 import { v4 as uuidv4 } from "uuid";
 import type { RequestEvent, RequestHandler } from "./$types";
+import { get } from "svelte/store";
 
 import { db } from "$lib/db/server/client";
 import { habitsTable } from "$lib/db/server/schema";
+import { userId } from "$stores/user.store";
 
 export const GET: RequestHandler = async () => {
 	try {
@@ -25,9 +27,11 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
 		const { name } = await request.json();
 		const id = uuidv4().toString();
+		const userIdString: string = get(userId);
+
 		const newHabit = {
 			id,
-			userId: "1",
+			userIdString,
 			isCompleted: false,
 			name
 		};

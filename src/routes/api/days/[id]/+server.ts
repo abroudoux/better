@@ -1,6 +1,6 @@
 import type { RequestHandler, RequestEvent } from "@sveltejs/kit";
-import { eq } from "drizzle-orm";
 import { json } from "@sveltejs/kit";
+import { eq } from "drizzle-orm";
 
 import { db } from "$lib/db/server/client";
 import { daysTable } from "$lib/db/server/schema";

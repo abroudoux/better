@@ -5,7 +5,9 @@
 	import Section from "$components/layouts/Section.svelte";
 	import Loader from "$components/global/Loader.svelte";
 
-	import { habitsData } from "$stores/habits";
+	import { habitsData } from "$stores/habit.store";
+	import { userId } from "$stores/user.store";
+	import type { Habit } from "$utils/types/entities";
 
 	export let data: PageData;
 
@@ -16,6 +18,8 @@
 	} else {
 		setTimeout(() => {
 			habitsData.set(data.habits);
+			const firstHabit: Habit = data.habits[0];
+			userId.set(firstHabit.userId || "");
 			isLoading = false;
 		}, 100);
 	}

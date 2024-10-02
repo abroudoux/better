@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/ui/button/button.svelte";
 
-	import { manageHabits } from "$stores/habits";
+	import { manageHabits } from "$stores/habit.store";
 
 	$: isManagingHabits = $manageHabits;
 

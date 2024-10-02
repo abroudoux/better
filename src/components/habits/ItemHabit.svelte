@@ -7,7 +7,7 @@
 	import DeleteHabit from "$components/habits/DeleteHabit.svelte";
 
 	import type { Habit } from "$utils/types/entities";
-	import { manageHabits, habitsData } from "$stores/habits";
+	import { manageHabits, habitsData } from "$stores/habit.store";
 	import { toggleHabitStatus } from "$services/habit.services";
 
 	export let habit: Habit;

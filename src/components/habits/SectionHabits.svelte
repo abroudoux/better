@@ -4,7 +4,7 @@
 	import ManageHabitsToggle from "$components/habits/ManageHabitsToggle.svelte";
 	import ProgressBar from "$components/habits/ProgressBar.svelte";
 
-	import { habitsData } from "$stores/habits";
+	import { habitsData } from "$stores/habit.store";
 	import type { Habit } from "$utils/types/entities";
 
 	$: habits = $habitsData as Habit[];

@@ -2,7 +2,7 @@
 	import ItemHabit from "$components/habits/ItemHabit.svelte";
 
 	import type { Habit } from "$utils/types/entities";
-	import { habitsData } from "$stores/habits";
+	import { habitsData } from "$stores/habit.store";
 
 	$: habits = $habitsData as Habit[];
 </script>
