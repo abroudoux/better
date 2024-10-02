@@ -22,7 +22,6 @@
 	async function handleDeleteHabit() {
 		isLoading = true;
 		const result = await deleteHabit(fetch, habit.id);
-		console.log(result);
 
 		await invalidateAll();
 		await goto("/");
