@@ -25,6 +25,7 @@ export const daysTable = pgTable("days", {
 		.notNull(),
 	habits: json("habits").default([]),
 	habitsCompleted: integer("habits_completed").default(0),
+	habitsLen: integer("habits_len").default(0),
 	percentage: integer("percentage").default(0)
 });
 

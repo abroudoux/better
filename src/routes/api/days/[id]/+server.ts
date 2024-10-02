@@ -61,17 +61,21 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 
 		const habitsLength: number = habits.length;
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
-		const percentage: number = (habitsCompleted / habitsLength) * 100;
+		const percentage: number = Math.round((habitsCompleted / habitsLength) * 100);
+		const habitsJson = JSON.stringify(habits);
 
 		await db
 			.update(daysTable)
-			.set({ habits: habitsLength, habitsCompleted, percentage })
+			.set({ habits: habitsJson, habitsCompleted, habitsLen: habitsLength, percentage })
 			.where(eq(daysTable.id, params.id))
 			.execute();
 
 		const updatedDay = await db.query.daysTable.findFirst({
 			where: eq(daysTable.id, params.id)
 		});
+
+		if (!updatedDay)
+			return new Response(JSON.stringify({ error: "Day not found" }), { status: 404 });
 
 		return new Response(JSON.stringify(updatedDay), {
 			status: 200,

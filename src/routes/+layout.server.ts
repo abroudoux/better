@@ -1,9 +1,9 @@
-import type { PageServerLoad } from "./$types";
+import type { LayoutServerLoad } from "./$types";
 
 import { getAllHabits } from "$services/habit.services";
 import type { Habit } from "$utils/types/entities";
 
-export const load: PageServerLoad = async ({ fetch }) => {
+export const load: LayoutServerLoad = async ({ fetch }: { fetch: typeof global.fetch }) => {
 	try {
 		const habits: Habit[] = await getAllHabits(fetch);
 

@@ -1,0 +1,1 @@
+ALTER TABLE "days" ADD COLUMN "habits_len" integer DEFAULT 0;
