@@ -1,5 +1,3 @@
-import type { E } from "vitest/dist/chunks/environment.C5eAp3K6.js";
-
 export type User = {
 	id: string;
 	name: string;
@@ -25,17 +23,28 @@ export type Day = {
 
 export type Training = {
 	id: string;
-	name: string;
 	userId?: string;
+	name: string;
+	isArchived: boolean;
+	circuits?: Circuit[];
 	exercises: Exercise[];
-	dayId?: string;
-	comments?: string | string[];
-	ameliorations?: string | string[] | Exercise[];
+	duration: number;
+	link?: string;
+};
+
+export type Circuit = {
+	id: string;
+	name: string;
+	reps: number;
+	exercises: Exercise[];
+	restExercice: number;
+	restCircuit: number;
 };
 
 export type Exercise = {
 	id: string;
 	name: string;
-	sets: number;
 	reps: number;
+	sets?: number;
+	rest?: number;
 };

@@ -13,20 +13,24 @@
 </script>
 
 <div
-	class="overflow-hidden"
+	class="overflow-hidden w-full h-full"
 	use:emblaCarouselSvelte={{
 		options: {
 			container: "[data-embla-container]",
 			slides: "[data-embla-slide]",
 			...$options,
-			axis: $orientation === "horizontal" ? "x" : "y",
+			axis: $orientation === "horizontal" ? "x" : "y"
 		},
-		plugins: $plugins,
+		plugins: $plugins
 	}}
 	on:emblaInit={onInit}
 >
 	<div
-		class={cn("flex", $orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+		class={cn(
+			"flex w-full h-full",
+			$orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+			className
+		)}
 		data-embla-container=""
 		{...$$restProps}
 	>

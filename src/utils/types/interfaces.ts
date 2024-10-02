@@ -8,5 +8,4 @@ export interface MenuItemSidebar {
 
 export interface DatabaseUserAttributes {
 	email: string;
-	// password: string;
 }
