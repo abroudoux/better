@@ -6,10 +6,11 @@
 	import Loader from "$components/global/Loader.svelte";
 
 	import { habitsData } from "$stores/habit.store";
-	import { userId } from "$stores/user.store";
-	import type { Habit } from "$utils/types/entities";
 
 	export let data: PageData;
+
+	//! DEBUG
+	console.log("Habits loaded from page.svelete", data.habits);
 
 	let isLoading: boolean = true;
 
@@ -18,8 +19,6 @@
 	} else {
 		setTimeout(() => {
 			habitsData.set(data.habits);
-			const firstHabit: Habit = data.habits[0];
-			userId.set(firstHabit.userId || "");
 			isLoading = false;
 		}, 100);
 	}

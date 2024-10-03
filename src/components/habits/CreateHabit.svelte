@@ -17,7 +17,7 @@
 
 	import type { HabitRequest } from "$utils/types/services";
 
-	import { postHabit } from "$services/habit.services";
+	import { postHabit } from "$services/habits.services";
 
 	let newHabit: HabitRequest = {
 		name: ""

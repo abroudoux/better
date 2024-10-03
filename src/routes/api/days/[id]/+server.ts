@@ -9,54 +9,34 @@ import type { Habit } from "$utils/types/entities";
 
 export const GET: RequestHandler = async () => {
 	try {
-		const now: string = new Date().toISOString().slice(0, 10);
+		const today: string = new Date().toISOString().slice(0, 10);
 		const day = await db.query.daysTable.findFirst({
-			where: eq(daysTable.date, now)
+			where: eq(daysTable.date, today)
 		});
 
-		if (!day) {
-			return new Response(JSON.stringify({ message: "No record found." }), {
-				status: 404,
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-		}
+		if (!day) return json({ habit: {}, message: "No habit found" }, { status: 404 });
 
-		return new Response(JSON.stringify({ day }), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		return json(day, { status: 200 });
 	} catch (error: any) {
-		console.error("Error fetching day:", error);
-		return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-			status: 500,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		console.error("Error fetching today's habit:", error.message);
+		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };
 
 export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => {
 	try {
-		if (!params.id)
-			return new Response(JSON.stringify({ error: "Day ID is missing" }), { status: 400 });
+		if (!params.id) return json({ params: "", message: "No id provided" }, { status: 400 });
 
 		const day = await db.query.daysTable.findFirst({
 			where: eq(daysTable.id, params.id)
 		});
 
-		if (!day) return new Response(JSON.stringify({ error: "Day not found" }), { status: 404 });
+		if (!day) return json({ day: {}, message: "Day not found" }, { status: 404 });
 
 		const { habits }: { habits: Habit[] } = await request.json();
 
 		if (!habits || !Array.isArray(habits)) {
-			return new Response(JSON.stringify({ error: "Habits not found or invalid" }), {
-				status: 400
-			});
+			return json({ habits: [], message: "No habits provided" }, { status: 400 });
 		}
 
 		const habitsLength: number = habits.length;
@@ -75,16 +55,11 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 		});
 
 		if (!updatedDay)
-			return new Response(JSON.stringify({ error: "Day not found" }), { status: 404 });
+			return json({ updatedDay: {}, message: "Day updated not found" }, { status: 404 });
 
-		return new Response(JSON.stringify(updatedDay), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		return json({ updatedDay: updatedDay, message: "Day successfully updated" }, { status: 200 });
 	} catch (error: any) {
-		console.error("Error updating day:", error);
+		console.error("Error updating day:", error.message);
 		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };

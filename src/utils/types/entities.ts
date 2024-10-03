@@ -14,7 +14,7 @@ export type Habit = {
 
 export type Day = {
 	id: string;
-	userId?: string;
+	userId: string;
 	date: string;
 	habits: Habit[];
 	habitsCompleted: number;

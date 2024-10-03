@@ -11,16 +11,14 @@ export const GET: RequestHandler = async ({ request, params }: RequestEvent) => 
 			where: eq(habitsTable.id, params.id)
 		});
 
-		if (!habit) return new Response(JSON.stringify({ error: "Habit not found" }), { status: 404 });
+		if (!habit) return json({ habit: {}, message: "No habit found" }, { status: 404 });
 
-		return new Response(JSON.stringify(habit), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		//! DEBUG
+		console.log("habit from GET habit:", habit);
+
+		return json(habit, { status: 200 });
 	} catch (error: any) {
-		console.error("Error fetching habit:", error);
+		console.error(`Error fetching habit with id ${params.id}:`, error.message);
 		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };
@@ -32,25 +30,18 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 			where: eq(habitsTable.id, id)
 		});
 
-		if (!habit) return new Response(JSON.stringify({ error: "Habit not found" }), { status: 404 });
+		if (!habit) return json({ habit: {}, message: "Habit not found" }, { status: 404 });
 
 		const newStatus = !habit.isCompleted;
 		await db.update(habitsTable).set({ isCompleted: newStatus }).where(eq(habitsTable.id, id));
 
-		return new Response(JSON.stringify(habit), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		//! DEBUG
+		console.log("habit from PUT habit:", habit);
+
+		return json({ habit: habit, message: "Habit successfully updated" }, { status: 200 });
 	} catch (error: any) {
-		console.error("Error updating habit:", error);
-		return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-			status: 500,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		console.error("Error updating habit:", error.message);
+		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };
 
@@ -61,23 +52,16 @@ export const DELETE: RequestHandler = async ({ request, params }: RequestEvent) 
 			where: eq(habitsTable.id, id)
 		});
 
-		if (!habit) return new Response(JSON.stringify({ error: "Habit not found" }), { status: 404 });
+		if (!habit) return json({ habit: {}, message: "Habit not found" }, { status: 404 });
 
 		await db.delete(habitsTable).where(eq(habitsTable.id, id));
 
-		return new Response(JSON.stringify(habit), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		//! DEBUG
+		console.log("habit from DELETE habit:", habit);
+
+		return json({ habit: habit, message: "Habit successfully deleted" }, { status: 200 });
 	} catch (error: any) {
-		console.error("Error deleting habit:", error);
-		return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-			status: 500,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		console.error("Error deleting habit:", error.message);
+		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };

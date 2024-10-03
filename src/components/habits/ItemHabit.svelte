@@ -8,7 +8,7 @@
 
 	import type { Habit } from "$utils/types/entities";
 	import { manageHabits, habitsData } from "$stores/habit.store";
-	import { toggleHabitStatus } from "$services/habit.services";
+	import { toggleHabitStatus } from "$services/habits.services";
 
 	export let habit: Habit;
 

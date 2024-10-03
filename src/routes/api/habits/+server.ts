@@ -1,55 +1,45 @@
 import { json } from "@sveltejs/kit";
 import { v4 as uuidv4 } from "uuid";
 import type { RequestEvent, RequestHandler } from "./$types";
-import { get } from "svelte/store";
 
 import { db } from "$lib/db/server/client";
 import { habitsTable } from "$lib/db/server/schema";
-import { userId } from "$stores/user.store";
 
 export const GET: RequestHandler = async () => {
 	try {
 		const habits = await db.query.habitsTable.findMany();
 
-		return new Response(JSON.stringify(habits), {
-			status: 200,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		if (!habits) return json([], { status: 404 });
+
+		//! DEBUG
+		console.log("habits from GET habits:", habits);
+
+		return json(habits, { status: 200 });
 	} catch (error: any) {
-		console.error("Error fetching habits:", error);
+		console.error("Error fetching habits:", error.message);
 		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };
 
 export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
+		const id = uuidv4();
 		const { name } = await request.json();
-		const id = uuidv4().toString();
-		const userIdString: string = get(userId);
-
+		// TODO => replace userId with the actual user id
 		const newHabit = {
 			id,
-			userIdString,
+			userId: "2e3ae305-0bae-4fc0-9b8b-890770cbbaf0",
 			isCompleted: false,
 			name
 		};
-		const habit = await db.insert(habitsTable).values(newHabit).execute();
+		await db.insert(habitsTable).values(newHabit).execute();
 
-		return new Response(JSON.stringify(newHabit), {
-			status: 201,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		//! DEBUG
+		console.log("newHabit from POST habits:", newHabit);
+
+		return json({ newHabit: newHabit, message: "Habit successfully created" }, { status: 201 });
 	} catch (error: any) {
-		console.error("Error creating habit:", error);
-		return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-			status: 500,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
+		console.error("Error creating habit:", error.message);
+		return json({ message: "Internal Server Error" }, { status: 500 });
 	}
 };
