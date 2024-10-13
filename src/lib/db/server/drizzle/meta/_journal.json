@@ -15,6 +15,13 @@
       "when": 1727881189830,
       "tag": "0001_dry_lila_cheney",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1727967445882,
+      "tag": "0002_little_magus",
+      "breakpoints": true
     }
   ]
 }
