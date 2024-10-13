@@ -10,10 +10,6 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-ENV DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
-
-RUN pnpm run build
-
 EXPOSE 5173
 
-CMD ["pnpm", "run", "dev"]
+CMD ["sh", "-c", "pnpm run generate && pnpm run migrate && pnpm run dev"]
