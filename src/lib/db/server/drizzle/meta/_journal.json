@@ -22,6 +22,13 @@
       "when": 1727967445882,
       "tag": "0002_little_magus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1728849187994,
+      "tag": "0003_freezing_sprite",
+      "breakpoints": true
     }
   ]
 }

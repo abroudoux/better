@@ -2,7 +2,7 @@ import type { SvelteComponent } from "svelte";
 import { House, Medal } from "lucide-svelte";
 
 import type { MenuItemSidebar } from "$utils/types/interfaces";
-import type { Training } from "$utils/types/entities";
+import type { Habit, Training } from "$utils/types/entities";
 
 export const menuItemsSidebar: MenuItemSidebar[] = [
 	{
@@ -14,6 +14,24 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 		label: "Trainings",
 		url: "/trainings",
 		icon: Medal as typeof SvelteComponent
+	}
+];
+
+export const habitsDataTest: Habit[] = [
+	{
+		id: "0",
+		name: "Drink water",
+		isCompleted: false
+	},
+	{
+		id: "1",
+		name: "Read",
+		isCompleted: false
+	},
+	{
+		id: "2",
+		name: "Exercise",
+		isCompleted: false
 	}
 ];
 
