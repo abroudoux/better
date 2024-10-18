@@ -11,19 +11,24 @@
 </script>
 
 <section class="flex flex-col gap-4 w-full h-full">
-	<div class="w-full flex flex-row justify-between items-center">
-		<h2 class="text-2xl font-semibold">Habits</h2>
-		<div class="flex flex-row items-center gap-4">
-			<ManageHabitsToggle />
-			<CreateHabit />
-		</div>
-	</div>
 	{#if habits.length > 0}
+		<div class="w-full flex flex-row justify-between items-center">
+			<h2 class="text-3xl font-semibold">Habits</h2>
+			<div class="flex flex-row items-center gap-4">
+				<ManageHabitsToggle />
+				<CreateHabit />
+			</div>
+		</div>
 		<ListHabits />
 		<div class="mt-auto">
 			<ProgressBar />
 		</div>
 	{:else}
-		<p class="text-gray-500">No habits yet</p>
+		<div class="w-full h-full flex items-center flex-col justify-center gap-8">
+			<h2 class="text-3xl font-semibold max-w-3xl text-center">
+				You have created any habits yet. Start your journey by select new daily challenges
+			</h2>
+			<CreateHabit />
+		</div>
 	{/if}
 </section>
