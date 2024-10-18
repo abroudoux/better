@@ -10,13 +10,6 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-ENV DATABASE_URL="postgresql://postgres:mysecretpassword@better-db:5432/better-db"
-
-RUN pnpm run build
-
-RUN pnpm run generate
-RUN pnpm run migrate
-
 EXPOSE 5173
 
-CMD ["pnpm", "run", "dev"]
+CMD ["sh", "-c", "pnpm run generate && pnpm run migrate && pnpm run dev"]
