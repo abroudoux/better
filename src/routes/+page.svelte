@@ -9,10 +9,10 @@
 
 	export let data: PageData;
 
-	//! DEBUG
-	console.log("Habits loaded from page.svelete", data.habits);
-
 	let isLoading: boolean = true;
+
+	//! DEBUG
+	if (process.env.NODE_ENV === "development") console.log("Habits {+page.ts}:", data.habits);
 
 	$: if (!data.habits) {
 		isLoading = true;

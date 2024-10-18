@@ -12,3 +12,31 @@ export type Day = {
 	habitsCompleted: number;
 	percentage: number;
 };
+
+export type Training = {
+	id: string;
+	userId?: string;
+	name: string;
+	isArchived: boolean;
+	circuits?: Circuit[];
+	exercises: Exercise[];
+	duration: number;
+	link?: string;
+};
+
+export type Circuit = {
+	id: string;
+	name: string;
+	reps: number;
+	exercises: Exercise[];
+	restExercice: number;
+	restCircuit: number;
+};
+
+export type Exercise = {
+	id: string;
+	name: string;
+	reps: number;
+	sets?: number;
+	rest?: number;
+};

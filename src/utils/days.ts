@@ -8,18 +8,11 @@ export function getDate() {
 
 export async function manageDay() {
 	const response = await isNewDay(fetch);
-	const habits: Habit[] | Error = await getAllHabits(fetch);
-
-	if (habits instanceof Error) {
-		throw new Error("Failed to fetch habits");
-	}
-
-	if (response instanceof Error) {
-		throw new Error("Failed to check if new day");
-	}
+	const habits: Habit[] = await getAllHabits(fetch);
 
 	if (response.isNewDay) {
 		const newDay = await postNewDay(fetch, habits);
+		console.log("New day created:", newDay);
 		for (const habit of habits) {
 			habit.isCompleted = false;
 		}

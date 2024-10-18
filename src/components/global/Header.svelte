@@ -3,7 +3,7 @@
 	import Logo from "$components/global/Logo.svelte";
 </script>
 
-<header class="header bg-background p-4 px-6 flex flex-row items-center justify-between border-b">
+<header class="header bg-background p-6 flex-row-center-between border-b">
 	<Logo />
 	<ModeToggle />
 </header>

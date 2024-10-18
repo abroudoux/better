@@ -1,148 +1,114 @@
 import type { Habit } from "$utils/types/entities";
 import type { HabitRequest } from "$utils/types/services";
 
-export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[] | Error> {
+export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]> {
 	try {
-		const response = await fetch("/api/habits");
+		const response = await fetch("/api/habits", { method: "GET" });
 
-		if (response.status === 404) {
-			throw new Error("No habits found");
-		} else if (!response.ok) {
-			throw new Error(`Failed to fetch habits: ${response.statusText}`);
-		}
+		if (!response.ok)
+			throw new Error(`Failed to fetch habits: ${response.statusText || "Unknown error"}`);
 
-		const habits: Habit[] = await response.json();
+		const habits = await response.json();
+
+		if (!Array.isArray(habits))
+			throw new Error("Invalid response structure: Expected an array of habits");
 
 		//! DEBUG
-		console.log("habits from getAllHabits service:", habits);
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {getAllHabits service}:", habits);
 
-		return habits;
+		return habits as Habit[];
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error("Error during getAllHabits service:", error.message);
-			throw new Error("Failed during getAllHabits service");
-		} else {
-			console.error("Unexpected error:", error);
-			throw new Error("An unexpected error occurred");
-		}
+		console.error("Error {getAllHabits}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
 	}
 }
 
 export async function getHabitById(fetch: typeof global.fetch, id: string): Promise<Habit> {
 	try {
-		const response = await fetch(`/api/habits/${id}`);
+		const response = await fetch(`/api/habits/${id}`, { method: "GET" });
 
-		if (response.status === 404) throw new Error("Habit not found");
-		if (!response.ok) throw new Error("Failed to fetch habit");
+		if (!response.ok)
+			throw new Error(`Failed to fetch habit: ${response.statusText || "Unknown error"}`);
 
 		const habit: Habit = await response.json();
 
 		//! DEBUG
-		console.log("Habit from getHabitById service:", habit);
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {getHabitById service}:", habit);
 
 		return habit;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error("Error during getHabitById service:", error.message);
-			throw new Error("Error during getHabitById service");
-		} else {
-			console.error("Unexpected error:", error);
-			throw new Error("An unexpected error occurred");
-		}
+		console.error("Error {getHabitById}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
 	}
 }
 
-export async function postHabit(
-	fetch: typeof global.fetch,
-	habit: HabitRequest
-): Promise<Habit | Error> {
+export async function postHabit(fetch: typeof global.fetch, habit: HabitRequest): Promise<Habit> {
 	try {
 		const response = await fetch("/api/habits", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
 			body: JSON.stringify({ name: habit.name })
 		});
 
-		if (!response.ok) throw new Error("Failed to create habit");
+		if (!response.ok)
+			throw new Error(`Failed to create habit: ${response.statusText || "Unknown error"}`);
 
-		const newHabit: Habit = await response.json();
+		const habitCreated: Habit = await response.json();
 
 		//! DEBUG
-		console.log("newHabit from postHabi service:", newHabit);
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {postHabit service}:", habitCreated);
 
-		return newHabit;
+		return habitCreated;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error("Error during postHabit service:", error.message);
-			throw new Error("Failed during postHabit service");
-		} else {
-			console.error("Unexpected error:", error);
-			throw new Error("An unexpected error occurred");
-		}
+		console.error("Error {postHabit}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
 	}
 }
 
-export async function toggleHabitStatus(
-	fetch: typeof global.fetch,
-	id: string
-): Promise<Habit | Error> {
+export async function toggleHabitStatus(fetch: typeof global.fetch, id: string): Promise<Habit> {
 	try {
 		const response = await fetch(`/api/habits/${id}`, {
 			method: "PUT",
-			headers: {
-				"Content-Type": "application/json"
-			},
 			body: JSON.stringify({ id })
 		});
 
-		if (response.status === 404) throw new Error("Habit not found");
-		if (!response.ok) throw new Error("Failed to update habit");
+		if (!response.ok)
+			throw new Error(`Failed to update habit: ${response.statusText || "Unknown error"}`);
 
-		const habit: Habit = await response.json();
+		const habitUpdated: Habit = await response.json();
 
 		//! DEBUG
-		console.log("habit from toggleHabitStatus service:", habit);
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {toggleHabitStatus service}:", habitUpdated);
 
-		return habit;
+		return habitUpdated;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error("Error during toggleHabitStatus service:", error.message);
-			throw new Error("Failed during toggleHabitStatus service");
-		} else {
-			console.error("Unexpected error:", error);
-			throw new Error("An unexpected error occurred");
-		}
+		console.error("Error {toggleHabitStatus}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
 	}
 }
 
-export async function deleteHabit(fetch: typeof global.fetch, id: string): Promise<Habit | Error> {
+export async function deleteHabit(fetch: typeof global.fetch, id: string): Promise<Habit> {
 	try {
 		const response = await fetch(`/api/habits/${id}`, {
 			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json"
-			},
 			body: JSON.stringify({ id })
 		});
 
-		if (response.status === 404) throw new Error("Habit not found");
-		if (!response.ok) throw new Error("Failed to delete habit");
+		if (!response.ok)
+			throw new Error(`Failed to delete habit: ${response.statusText || "Unknown error"}`);
 
-		const habit: Habit = await response.json();
+		const habitDeleted: Habit = await response.json();
 
 		//! DEBUG
-		console.log("habit from deleteHabit service:", habit);
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {deleteHabit service}:", habitDeleted);
 
-		return habit;
+		return habitDeleted;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error("Error during deleteHabit service:", error.message);
-			throw new Error("Failed during deleteHabit service");
-		} else {
-			console.error("Unexpected error:", error);
-			throw new Error("An unexpected error occurred");
-		}
+		console.error("Error {deleteHabit}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
 	}
 }

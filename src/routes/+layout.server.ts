@@ -6,24 +6,19 @@ import type { Habit } from "$utils/types/entities";
 export const load: LayoutServerLoad = async ({ fetch }: { fetch: typeof global.fetch }) => {
 	try {
 		const result = await getAllHabits(fetch);
-
-		if (result instanceof Error) {
-			throw result;
-		}
-
 		const habits: Habit[] = result;
 
 		//! DEBUG
-		console.log("Habits loaded from layout.server", habits);
+		if (process.env.NODE_ENV === "development") console.log("Habits {+layout.server.ts}:", habits);
 
 		return {
 			habits
 		};
-	} catch (error) {
-		console.error("Error in load function:", error);
+	} catch (error: unknown) {
+		console.error(typeof Error ? (error as Error).message : error);
 		return {
 			status: 500,
-			error: new Error("Failed to load habits")
+			error: new Error(typeof Error ? String((error as Error).message) : String(error))
 		};
 	}
 };

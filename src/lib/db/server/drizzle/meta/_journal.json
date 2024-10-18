@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1727786747442,
-      "tag": "0000_conscious_strong_guy",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1727881189830,
-      "tag": "0001_dry_lila_cheney",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1727967445882,
-      "tag": "0002_little_magus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1728849187994,
-      "tag": "0003_freezing_sprite",
+      "when": 1728927379133,
+      "tag": "0000_typical_thunderbird",
       "breakpoints": true
     }
   ]

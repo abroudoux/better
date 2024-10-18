@@ -1,4 +1,4 @@
-import type { User, Habit } from "$utils/types/entities";
+import type { Habit } from "$utils/types/entities";
 
 export interface ServiceResponse<T> {
 	data: T | null;

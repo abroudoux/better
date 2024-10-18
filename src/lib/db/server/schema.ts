@@ -16,7 +16,7 @@ export const daysTable = pgTable("days", {
 	percentage: integer("percentage").default(0).notNull()
 });
 
-export const daysRelations = relations(daysTable, ({ one, many }) => ({
+export const daysRelations = relations(daysTable, ({ many }) => ({
 	habits: many(habitsTable)
 }));
 
