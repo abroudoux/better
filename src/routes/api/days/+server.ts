@@ -31,29 +31,35 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
 		const now = getDate();
 		const id = uuidv4().toString();
-		// TODO => replace userId with the actual user id
-		const userId = "2e3ae305-0bae-4fc0-9b8b-890770cbbaf0";
 		const habits: Habit[] = (await request.json()).habits;
 		const habitsLength: number = habits.length;
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
-		const percentage: number = (habitsCompleted / habitsLength) * 100;
+		const percentage: number = Math.round((habitsCompleted / habitsLength) * 100);
+
 		const newDay: Day = {
 			id: id,
-			userId: userId,
 			date: now,
 			habits: habits,
 			habitsCompleted: habitsCompleted,
-			percentage: percentage
+			percentage: percentage,
+			habitsNum: habits.length
 		};
+
+		//! DEBUG
+		if (process.env.NODE_ENV === "development") console.log("newDay from POST days:", newDay);
 
 		const dayCreated = await db.insert(daysTable).values(newDay).execute();
 
 		//! DEBUG
-		console.log("dayCreated from POST days:", dayCreated);
+		if (process.env.NODE_ENV === "development")
+			console.log("dayCreated from POST days:", dayCreated);
 
 		return json({ day: dayCreated, message: "Day successfully created" }, { status: 201 });
-	} catch (error: any) {
-		console.error("Error creating day:", error.message);
-		return json({ message: "Internal Server Error" }, { status: 500 });
+	} catch (error: unknown) {
+		console.error("Error creating day:", error instanceof Error ? error.message : error);
+		return json(
+			{ message: "Internal Server Error", error: error instanceof Error ? error.message : error },
+			{ status: 500 }
+		);
 	}
 };
