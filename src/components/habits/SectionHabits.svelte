@@ -10,7 +10,7 @@
 	$: habits = $habitsData as Habit[];
 </script>
 
-<section class="flex flex-col gap-4 w-full h-full">
+<section class="flex flex-col gap-8 w-full h-full">
 	{#if habits.length > 0}
 		<div class="w-full flex flex-row justify-between items-center">
 			<h2 class="text-3xl font-semibold">Habits</h2>

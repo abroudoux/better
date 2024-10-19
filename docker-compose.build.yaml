@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DATABASE_URL: "postgresql://postgres:mysecretpassword@db:5432/better-db"
     ports:
       - "5173:5173"
     depends_on:
@@ -12,7 +14,7 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:mysecretpassword@db:5432/better-db"
     command: >
-      sh -c "pnpm install && pnpm run generate && pnpm run migrate && pnpm run dev"
+      sh -c "npm install && npm run generate && npm run migrate && node build/index.js"
 
   db:
     container_name: better-db

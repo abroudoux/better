@@ -13,6 +13,5 @@ README.md
 .vscode
 .idea
 node_modules
-build
 package
 **/.env

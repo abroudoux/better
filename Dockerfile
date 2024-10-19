@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:22-alpine as builder
 
 RUN npm install -g pnpm
 
@@ -10,6 +10,21 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
+RUN pnpm run build
+
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/build ./build
+
+COPY package.json pnpm-lock.yaml ./
+
+RUN npm install --only=production --legacy-peer-deps
+
 EXPOSE 5173
 
-CMD ["sh", "-c", "pnpm run generate && pnpm run migrate && pnpm run dev"]
+CMD ["node", "build/index.js"]

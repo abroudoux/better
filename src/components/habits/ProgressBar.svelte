@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { Progress } from "$lib/components/ui/progress";
 	import { toast } from "svelte-sonner";
+
+	import { Progress } from "$lib/components/ui/progress";
 
 	import { habitsData } from "$stores/habit.store";
 	import type { Habit } from "$utils/types/entities";
