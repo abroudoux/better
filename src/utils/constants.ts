@@ -9,12 +9,12 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 		label: "Dashboard",
 		url: "/",
 		icon: House as typeof SvelteComponent
+	},
+	{
+		label: "Trainings",
+		url: "/trainings",
+		icon: Medal as typeof SvelteComponent
 	}
-	// {
-	// 	label: "Trainings",
-	// 	url: "/trainings",
-	// 	icon: Medal as typeof SvelteComponent
-	// }
 ];
 
 export const habitsDataTest: Habit[] = [

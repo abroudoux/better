@@ -30,8 +30,9 @@
 				</div>
 			</div>
 			<Footer>
-				<Button type="submit" disabled={isLoading}>{isLoading ? "Creating..." : "Next step"}</Button
-				>v
+				<Button type="submit" disabled={isLoading}
+					>{isLoading ? "Creating..." : "Next step"}
+				</Button>
 			</Footer>
 		</form>
 	</Content>

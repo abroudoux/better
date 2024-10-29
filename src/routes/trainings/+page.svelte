@@ -1,5 +1,3 @@
-<script lang="ts">
-	import Section from "$components/layouts/Section.svelte";
-</script>
+<script lang="ts"></script>
 
-<Section>page trainings</Section>
+<div class="py-4">page trainings</div>

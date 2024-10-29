@@ -5,7 +5,8 @@
 
 	export let menu: MenuItemSidebar;
 
-	$: isActive = $page.url.pathname === menu.url;
+	$: isActive =
+		menu.url === "/" ? $page.url.pathname === menu.url : $page.url.pathname.startsWith(menu.url);
 </script>
 
 <li
