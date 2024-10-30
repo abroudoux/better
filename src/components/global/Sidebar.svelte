@@ -15,7 +15,7 @@
 	<a
 		href="https://github.com/abroudoux/better.git"
 		target="_blank"
-		class="w-full items-center flex justify-start pb-8 px-2 text-muted-foreground underline underline-offset-4 hover:underline-offset-2 transition-all text-sm"
+		class="w-full items-center flex justify-start pb-12 px-2 text-muted-foreground underline underline-offset-4 hover:underline-offset-2 transition-all text-sm"
 		>Source Code</a
 	>
 </nav>

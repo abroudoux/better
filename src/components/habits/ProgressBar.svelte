@@ -7,7 +7,6 @@
 	import type { Habit } from "$utils/types/entities";
 
 	$: habits = $habitsData as Habit[];
-
 	$: habitsLength = habits.length;
 	$: habitsCompleted = habits.filter((h) => h.isCompleted).length;
 	$: habitsAllCompleted = habits.every((habit) => habit.isCompleted);
@@ -21,7 +20,7 @@
 	}
 </script>
 
-<div class="my-2">
+<div>
 	<p class={`text-right text-sm py-4 ${habitsAllCompleted ? "text-green-500" : "text-primary"}`}>
 		{habitsCompleted} / {habitsLength}
 	</p>
