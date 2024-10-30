@@ -1,5 +1,5 @@
 import type { SvelteComponent } from "svelte";
-import { House, Medal } from "lucide-svelte";
+import { House, Medal, User } from "lucide-svelte";
 
 import type { MenuItemSidebar } from "$utils/types/interfaces";
 import type { Habit, Training } from "$utils/types/entities";
@@ -15,6 +15,11 @@ export const menuItemsSidebar: MenuItemSidebar[] = [
 		url: "/trainings",
 		icon: Medal as typeof SvelteComponent
 	}
+	// {
+	// 	label: "Profile",
+	// 	url: "/profile",
+	// 	icon: User as typeof SvelteComponent
+	// }
 ];
 
 export const habitsDataTest: Habit[] = [
