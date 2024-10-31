@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 
-	import type { MenuItemSidebar } from "$utils/types/interfaces";
+	import type { MenuSidebar } from "$utils/types/interfaces";
 
-	export let menu: MenuItemSidebar;
+	export let menu: MenuSidebar;
 
 	$: isActive =
 		menu.url === "/" ? $page.url.pathname === menu.url : $page.url.pathname.startsWith(menu.url);

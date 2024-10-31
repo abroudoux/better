@@ -4,7 +4,7 @@
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import Button from "$lib/components/ui/button/button.svelte";
 	import { Root, Trigger } from "$lib/components/ui/alert-dialog";
-	import DeleteHabit from "$components/habits/DeleteHabit.svelte";
+	import DeleteHabit from "$lib/components/habits/DeleteHabitDialog.svelte";
 
 	import type { Habit } from "$utils/types/entities";
 	import { manageHabits, habitsData } from "$stores/habit.store";

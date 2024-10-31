@@ -2,8 +2,8 @@
 	import { onMount } from "svelte";
 	import { ModeWatcher } from "mode-watcher";
 
-	import Header from "$components/global/Header.svelte";
-	import Sidebar from "$components/global/Sidebar.svelte";
+	import Header from "$lib/components/global/Header.svelte";
+	import Sidebar from "$lib/components/global/Sidebar.svelte";
 	import { Toaster } from "$lib/components/ui/sonner";
 
 	import { manageDay } from "$utils/days";

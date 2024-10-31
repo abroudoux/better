@@ -1,6 +1,6 @@
 import type { SvelteComponent } from "svelte";
 
-export interface MenuItemSidebar {
+export interface MenuSidebar {
 	label: string;
 	url: string;
 	icon: typeof SvelteComponent;

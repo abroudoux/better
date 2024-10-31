@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ListHabits from "$components/habits/ListHabits.svelte";
-	import CreateHabit from "$components/habits/CreateHabit.svelte";
-	import ManageHabitsToggle from "$components/habits/ManageHabitsToggle.svelte";
-	import ProgressBar from "$components/habits/ProgressBar.svelte";
+	import ListHabits from "$lib/components/habits/ListHabits.svelte";
+	import CreateHabit from "$lib/components/habits/CreateHabitModal.svelte";
+	import ManageHabitsToggle from "$lib/components/habits/ManageHabitsToggle.svelte";
+	import ProgressBar from "$lib/components/habits/ProgressBar.svelte";
 
 	import { habitsData } from "$stores/habit.store";
 	import type { Habit } from "$utils/types/entities";

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 
-	import Section from "$components/layouts/Section.svelte";
+	import SectionLayout from "$lib/components/layouts/SectionLayout.svelte";
 
 	let nameTraining: string = $page.params.name;
 </script>
 
-<Section>
+<SectionLayout>
 	<p>Training: {nameTraining}</p>
 	<p>Page: {$page.params.page}</p>
-</Section>
+</SectionLayout>

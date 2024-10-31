@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ItemHabit from "$components/habits/ItemHabit.svelte";
+	import HabitCard from "$lib/components/habits/HabitCard.svelte";
 
 	import type { Habit } from "$utils/types/entities";
 	import { habitsData } from "$stores/habit.store";
@@ -9,6 +9,6 @@
 
 <ul class="grid grid-cols-4 items-start gap-4">
 	{#each habits as habit}
-		<ItemHabit {habit} />
+		<HabitCard {habit} />
 	{/each}
 </ul>

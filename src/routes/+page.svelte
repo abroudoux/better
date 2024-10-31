@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 
-	import SectionHabits from "$components/habits/SectionHabits.svelte";
-	import Section from "$components/layouts/Section.svelte";
-	import Loader from "$components/global/Loader.svelte";
+	import SectionHabits from "$lib/components/habits/SectionHabits.svelte";
+	import SectionLayout from "$lib/components/layouts/SectionLayout.svelte";
+	import Loader from "$lib/components/global/Loader.svelte";
 
 	import { habitsData } from "$stores/habit.store";
 
@@ -24,10 +24,10 @@
 	}
 </script>
 
-<Section>
+<SectionLayout>
 	{#if isLoading}
 		<Loader />
 	{:else}
 		<SectionHabits />
 	{/if}
-</Section>
+</SectionLayout>

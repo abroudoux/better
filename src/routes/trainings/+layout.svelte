@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Section from "$components/layouts/Section.svelte";
-	import CreateTrainingModal from "$components/trainings/CreateTrainingModal.svelte";
-	import CalendarCarousel from "$components/global/calendar/CalendarCarousel.svelte";
+	import Section from "$lib/components/layouts/SectionLayout.svelte";
+	import CreateTrainingModal from "$lib/components/trainings/CreateTrainingModal.svelte";
+	import CalendarCarousel from "$lib/components/global/calendar/CalendarCarousel.svelte";
 
 	import type { Training } from "$utils/types/entities";
 	import { trainingsDataTest } from "$utils/constants";

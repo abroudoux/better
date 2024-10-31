@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MenuItemSidebar from "$components/global/MenuItemSidebar.svelte";
+	import MenuSidebar from "$lib/components/global/MenuSidebar.svelte";
 
 	import { menuItemsSidebar } from "$utils/constants";
 </script>
@@ -9,7 +9,7 @@
 >
 	<ul class="w-full mt-4 flex flex-col gap-2">
 		{#each menuItemsSidebar as menu}
-			<MenuItemSidebar {menu} />
+			<MenuSidebar {menu} />
 		{/each}
 	</ul>
 	<a

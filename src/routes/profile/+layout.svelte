@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Section from "$components/layouts/Section.svelte";
+	import SectionLayout from "$lib/components/layouts/SectionLayout.svelte";
 </script>
 
-<Section classes="w-full h-full flex flex-col gap-8">
+<SectionLayout classes="w-full h-full flex flex-col gap-8">
 	<h2 class="text-3xl font-semibold">Settings</h2>
 	<div class="w-full flex flex-row items-start justify-between gap-8">
 		<nav
@@ -20,4 +20,4 @@
 		</nav>
 		<slot />
 	</div>
-</Section>
+</SectionLayout>
