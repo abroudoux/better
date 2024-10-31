@@ -1,5 +1,5 @@
 import { isNewDay, postNewDay, putDay } from "$services/days.services";
-import { getAllHabits } from "$services/habits.services";
+import { getAllHabits, toggleAllHabitsStatus } from "$services/habits.services";
 import type { Day, Habit } from "$utils/types/entities";
 
 export function getDate() {
@@ -16,17 +16,15 @@ export async function manageDay() {
 
 	if (response.isNewDay) {
 		const dayCreated: Day = await postNewDay(fetch, habits);
+		const habitsUpdated: Habit[] = await toggleAllHabitsStatus(fetch, habits);
 
-		console.log("New day created:", dayCreated);
-
-		for (const habit of habits) habit.isCompleted = false;
-
-		return dayCreated;
+		//! DEBUG
+		if (process.env.NODE_ENV === "development") console.log("New day created:", dayCreated);
+		if (process.env.NODE_ENV === "development") console.log("Habits updated:", habitsUpdated);
 	} else if (response.dayId) {
 		const dayUpdated: Day = await putDay(fetch, response.dayId, habits);
 
-		console.log("Day updated:", dayUpdated);
-
-		return dayUpdated;
+		//! DEBUG
+		if (process.env.NODE_ENV === "development") console.log("Day updated:", dayUpdated);
 	}
 }

@@ -90,6 +90,29 @@ export async function toggleHabitStatus(fetch: typeof global.fetch, id: string):
 	}
 }
 
+export async function toggleAllHabitsStatus(
+	fetch: typeof global.fetch,
+	habits: Habit[]
+): Promise<Habit[]> {
+	try {
+		//! DEBUG
+		if (process.env.NODE_ENV === "development")
+			console.log("Habits {toggleAllHabitsStatus service}:", habits);
+
+		let habitsUpdated: Habit[] = [];
+
+		for (const habit of habits) {
+			let habitUpdated: Habit = await toggleHabitStatus(fetch, habit.id);
+			habitUpdated = { ...habit, ...habitUpdated };
+		}
+
+		return habitsUpdated;
+	} catch (error: unknown) {
+		console.error("Error {toggleAllHabitsStatus}:", error instanceof Error ? error.message : error);
+		throw error instanceof Error ? error : new Error("An unexpected error occurred");
+	}
+}
+
 export async function deleteHabit(fetch: typeof global.fetch, id: string): Promise<Habit> {
 	try {
 		const response = await fetch(`/api/habits/${id}`, {
