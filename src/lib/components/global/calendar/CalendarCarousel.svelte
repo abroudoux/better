@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Root, Content } from "$lib/components/ui/carousel/index";
-	import CardDayCalendar from "$components/global/calendar/CardDayCalendar.svelte";
+	import CardDayCalendar from "$lib/components/global/calendar/CardDayCalendar.svelte";
 
 	export let data;
 </script>
