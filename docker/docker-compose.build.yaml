@@ -3,8 +3,8 @@ services:
     container_name: better-app
     image: better-app:latest
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ./docker/Dockerfile
       args:
         DATABASE_URL: "postgresql://postgres:mysecretpassword@db:5432/better-db"
     ports:
