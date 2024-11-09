@@ -32,6 +32,9 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 		const now = getDate();
 		const id = uuidv4().toString();
 		const habits: Habit[] = (await request.json()).habits;
+		habits.forEach((habit) => {
+			habit.isCompleted = false;
+		});
 		const habitsLength: number = habits.length;
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
 		const percentage: number = Math.round((habitsCompleted / habitsLength) * 100);

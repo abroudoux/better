@@ -46,7 +46,7 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 
 		await db
 			.update(daysTable)
-			.set({ habits: habitsJson, habitsCompleted, habitsLen: habitsLength, percentage })
+			.set({ habits: habitsJson, habitsNum: habitsLength, habitsCompleted, percentage })
 			.where(eq(daysTable.id, params.id))
 			.execute();
 
