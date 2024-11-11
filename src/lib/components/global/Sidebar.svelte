@@ -12,10 +12,13 @@
 			<MenuSidebar {menu} />
 		{/each}
 	</ul>
-	<a
-		href="https://github.com/abroudoux/better.git"
-		target="_blank"
-		class="w-full items-center flex justify-start pb-12 px-2 text-muted-foreground underline underline-offset-4 hover:underline-offset-2 transition-all text-sm"
-		>Source Code</a
+	<div
+		class="relative after:absolute after:bg-neutral-400 mb-12 mx-2 after:bottom-0 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300"
 	>
+		<a
+			href="https://github.com/abroudoux/better.git"
+			target="_blank"
+			class="text-muted-foreground text-sm">Source Code</a
+		>
+	</div>
 </nav>
