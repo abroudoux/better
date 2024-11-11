@@ -1,45 +1,48 @@
 {
-  "id": "30af2a04-ee69-4f27-8365-23a5f178ad37",
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "820d5e79-d77a-49a6-bd15-da3b8cf959dc",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "7",
-  "dialect": "postgresql",
   "tables": {
-    "public.days": {
+    "days": {
       "name": "days",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "default": "'uuid_generate_v4()'"
+          "autoincrement": true
         },
         "date": {
           "name": "date",
-          "type": "varchar",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(CURRENT_DATE)"
         },
         "habits": {
           "name": "habits",
-          "type": "json",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'[]'::json"
+          "autoincrement": false
         },
-        "habits_num": {
-          "name": "habits_num",
+        "habitsNum": {
+          "name": "habitsNum",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": 0
         },
-        "habits_completed": {
-          "name": "habits_completed",
+        "habitsCompleted": {
+          "name": "habitsCompleted",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": 0
         },
         "percentage": {
@@ -47,6 +50,7 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": 0
         }
       },
@@ -54,32 +58,31 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.habits": {
+    "habits": {
       "name": "habits",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar",
+          "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "default": "'uuid_generate_v4()'"
+          "autoincrement": true
         },
         "name": {
           "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "is_completed": {
-          "name": "is_completed",
-          "type": "boolean",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "isCompleted": {
+          "name": "isCompleted",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
           "default": false
         }
       },
@@ -87,20 +90,17 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     }
   },
-  "enums": {},
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
   "views": {},
+  "enums": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }

@@ -1,19 +1,21 @@
-import { relations } from "drizzle-orm";
-import { integer, pgTable, boolean, json, varchar } from "drizzle-orm/pg-core";
+import { sql, relations } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-export const habitsTable = pgTable("habits", {
-	id: varchar("id").primaryKey().default("uuid_generate_v4()"),
-	name: varchar("name").notNull(),
-	isCompleted: boolean("is_completed").default(false).notNull()
+export const habitsTable = sqliteTable("habits", {
+	id: integer().primaryKey({ autoIncrement: true }).notNull(),
+	name: text().notNull(),
+	isCompleted: integer({ mode: "boolean" }).default(false).notNull()
 });
 
-export const daysTable = pgTable("days", {
-	id: varchar("id").primaryKey().default("uuid_generate_v4()"),
-	date: varchar("date").notNull(),
-	habits: json("habits").default([]).notNull(),
-	habitsNum: integer("habits_num").default(0).notNull(),
-	habitsCompleted: integer("habits_completed").default(0).notNull(),
-	percentage: integer("percentage").default(0).notNull()
+export const daysTable = sqliteTable("days", {
+	id: integer().primaryKey({ autoIncrement: true }).notNull(),
+	date: text()
+		.default(sql`(CURRENT_DATE)`)
+		.notNull(),
+	habits: text({ mode: "json" }).notNull(),
+	habitsNum: integer().default(0).notNull(),
+	habitsCompleted: integer().default(0).notNull(),
+	percentage: integer().default(0).notNull()
 });
 
 export const daysRelations = relations(daysTable, ({ many }) => ({

@@ -1,16 +1,11 @@
 import "dotenv/config";
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
 
 import { habitsTable } from "$lib/db/server/schema";
-import type { Habit } from "$utils/types/entities";
+import { db } from "$lib/db/server/client";
 
 const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) throw new Error("DATABASE_URL is not set");
-
-const sql = postgres(databaseUrl);
-const db = drizzle(sql);
 
 async function seedDatabase() {
 	await db
@@ -19,17 +14,17 @@ async function seedDatabase() {
 			{
 				id: "0",
 				name: "Drink water",
-				isCompleted: false
+				isCompleted: 0
 			},
 			{
 				id: "1",
 				name: "Read",
-				isCompleted: false
+				isCompleted: 0
 			},
 			{
 				id: "2",
 				name: "Exercise",
-				isCompleted: false
+				isCompleted: 0
 			}
 		])
 		.execute();
