@@ -9,7 +9,6 @@ import {
 	deleteHabit
 } from "$services/habits.services";
 import type { Habit } from "$utils/types/entities";
-import { is } from "drizzle-orm";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -206,7 +205,6 @@ describe("Habit services", () => {
 			const result: Habit[] = await toggleAllHabitsStatus(fetch, habits);
 
 			expect(result).toEqual(newHabits);
-			// expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 	});
 
