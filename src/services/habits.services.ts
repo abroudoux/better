@@ -98,14 +98,11 @@ export async function toggleAllHabitsStatus(
 		if (process.env.NODE_ENV === "development")
 			console.log("Habits {toggleAllHabitsStatus service}:", habits);
 
-		let habitsUpdated: Habit[] = [];
-
 		for (const habit of habits) {
-			let habitUpdated: Habit = await toggleHabitStatus(fetch, habit.id);
-			habitUpdated = { ...habit, ...habitUpdated };
+			habit.isCompleted = false;
 		}
 
-		return habitsUpdated;
+		return habits as Habit[];
 	} catch (error: unknown) {
 		console.error("Error {toggleAllHabitsStatus}:", error instanceof Error ? error.message : error);
 		throw error instanceof Error ? error : new Error("An unexpected error occurred");

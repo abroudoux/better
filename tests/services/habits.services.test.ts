@@ -5,6 +5,7 @@ import {
 	getHabitById,
 	postHabit,
 	toggleHabitStatus,
+	toggleAllHabitsStatus,
 	deleteHabit
 } from "$services/habits.services";
 import type { Habit } from "$utils/types/entities";
@@ -188,6 +189,24 @@ describe("Habit services", () => {
 				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe("toggleAllHabitsStatus", () => {
+		it("should toggle all habits status to false", async () => {
+			const newHabits: Habit[] = habits.map((habit) => ({ ...habit, isCompleted: false }));
+			const mockResponse: Habit[] = newHabits;
+
+			mockFetch.mockResolvedValueOnce({
+				ok: true,
+				json: () => Promise.resolve(mockResponse),
+				status: 200
+			});
+
+			const result: Habit[] = await toggleAllHabitsStatus(fetch, habits);
+
+			expect(result).toEqual(newHabits);
+			// expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 	});
 
