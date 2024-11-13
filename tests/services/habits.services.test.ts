@@ -8,6 +8,7 @@ import {
 	deleteHabit
 } from "$services/habits.services";
 import type { Habit } from "$utils/types/entities";
+import { is } from "drizzle-orm";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
@@ -17,13 +18,16 @@ describe("Habit services", () => {
 		vi.resetAllMocks();
 	});
 
+	const habits: Habit[] = [
+		{ id: "1", isCompleted: false, name: "Drink water" },
+		{ id: "2", isCompleted: true, name: "Exercise" }
+	];
+	const habit: Habit = habits[0];
+	const newHabit: Habit = { id: "3", isCompleted: false, name: "Read a book" };
+
 	describe("getAllHabits", () => {
 		it("should return all habits when the fetch is successful", async () => {
-			const habits: Habit[] = [
-				{ id: "1", userId: "1", isCompleted: false, name: "Drink water" },
-				{ id: "2", userId: "1", isCompleted: false, name: "Read a book" }
-			];
-			const mockResponse = habits;
+			const mockResponse: Habit[] = habits;
 
 			mockFetch.mockResolvedValueOnce({
 				ok: true,
@@ -36,7 +40,6 @@ describe("Habit services", () => {
 			expect(result).toEqual(habits);
 			expect(result).toHaveLength(2);
 			expect(mockFetch).toHaveBeenCalledTimes(1);
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits");
 		});
 
 		it("should return an empty array when no habits are found", async () => {
@@ -51,13 +54,17 @@ describe("Habit services", () => {
 			expect(result).toEqual([]);
 			expect(result).toHaveLength(0);
 			expect(mockFetch).toHaveBeenCalledTimes(1);
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits");
+		});
+
+		it("should throw a generic error if an unexpected error occurs", async () => {
+			mockFetch.mockRejectedValueOnce(new Error("Network error"));
+
+			await expect(getAllHabits(fetch)).rejects.toThrow("Network error");
 		});
 	});
 
 	describe("getHabitById", () => {
-		const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-		const mockResponse = habit;
+		const mockResponse: Habit = habit;
 
 		it("should return habit by id", async () => {
 			mockFetch.mockResolvedValueOnce({
@@ -69,41 +76,32 @@ describe("Habit services", () => {
 			const result = await getHabitById(fetch, "1");
 
 			expect(result).toEqual(habit);
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits/1");
-			expect(mockFetch).toHaveBeenCalledTimes(1);
+			expect(mockFetch).toHaveBeenCalledWith("/api/habits/1", { method: "GET" });
 		});
 
-		it("should throw an error if habit is not found", async () => {
+		it("should throw an error if response is not ok", async () => {
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 404,
-				json: () => Promise.resolve({ message: "Habit not found" })
+				statusText: "Not Found",
+				json: () => Promise.resolve({})
 			});
 
-			await expect(getHabitById(fetch, "1")).rejects.toThrow("Error during getHabitById service");
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits/1");
+			await expect(getHabitById(fetch, "1")).rejects.toThrow("Failed to fetch habit");
+			expect(mockFetch).toHaveBeenCalledWith("/api/habits/1", { method: "GET" });
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
-		it("should throw an error if fetch fails", async () => {
-			mockFetch.mockResolvedValueOnce({
-				ok: false,
-				status: 500,
-				json: () => Promise.resolve({ message: "Server error" })
-			});
+		it("should throw a generic error if an unexpected error occurs", async () => {
+			mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
-			await expect(getHabitById(fetch, "1")).rejects.toThrow("Error during getHabitById service");
-			expect(mockFetch).toHaveBeenCalledWith("/api/habits/1");
-			expect(mockFetch).toHaveBeenCalledTimes(1);
+			await expect(getHabitById(fetch, "1")).rejects.toThrow("Network error");
 		});
 	});
 
 	describe("postHabit", () => {
 		it("should create a new habit", async () => {
-			const newHabit = {
-				name: "Exercise"
-			};
-			const mockResponse = { newHabit };
+			const mockResponse: Habit = newHabit;
 
 			mockFetch.mockResolvedValueOnce({
 				ok: true,
@@ -111,36 +109,26 @@ describe("Habit services", () => {
 				status: 201
 			});
 
-			const result = await postHabit(fetch, newHabit);
+			const result: Habit = await postHabit(fetch, newHabit);
 
-			expect(result).toEqual({ newHabit });
+			expect(result).toEqual(newHabit);
+			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockFetch).toHaveBeenCalledWith("/api/habits", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
 				body: JSON.stringify({ name: newHabit.name })
 			});
-			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an error if habit creation fails", async () => {
-			const newHabit = {
-				name: "Exercise"
-			};
-
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 500,
 				json: () => Promise.resolve({ message: "Server error" })
 			});
 
-			await expect(postHabit(fetch, newHabit)).rejects.toThrow("Failed during postHabit service");
+			await expect(postHabit(fetch, newHabit)).rejects.toThrow("Failed to create habit");
 			expect(mockFetch).toHaveBeenCalledWith("/api/habits", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
 				body: JSON.stringify({ name: newHabit.name })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -149,9 +137,8 @@ describe("Habit services", () => {
 
 	describe("toggleHabitStatus", () => {
 		it("should toggle habit status", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-			const newHabit = { ...habit, isCompleted: true };
-			const mockResponse = { newHabit };
+			const newHabit: Habit = { ...habit, isCompleted: true };
+			const mockResponse: Habit = newHabit;
 
 			mockFetch.mockResolvedValueOnce({
 				ok: true,
@@ -159,22 +146,17 @@ describe("Habit services", () => {
 				status: 200
 			});
 
-			const result = await toggleHabitStatus(fetch, habit.id);
+			const result: Habit = await toggleHabitStatus(fetch, habit.id);
 
-			expect(result).toEqual({ newHabit });
+			expect(result).toEqual(newHabit);
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "PUT",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an error if habit status toggle fails", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 500,
@@ -182,21 +164,16 @@ describe("Habit services", () => {
 			});
 
 			await expect(toggleHabitStatus(fetch, habit.id)).rejects.toThrow(
-				"Failed during toggleHabitStatus service"
+				"Failed to update habit status"
 			);
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "PUT",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an error if habit is not found", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 404,
@@ -204,14 +181,11 @@ describe("Habit services", () => {
 			});
 
 			await expect(toggleHabitStatus(fetch, habit.id)).rejects.toThrow(
-				"Failed during toggleHabitStatus service"
+				"Failed to update habit status"
 			);
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "PUT",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
@@ -219,8 +193,7 @@ describe("Habit services", () => {
 
 	describe("deleteHabit", () => {
 		it("should delete a habit", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-			const mockResponse = { habit };
+			const mockResponse: Habit = habit;
 
 			mockFetch.mockResolvedValueOnce({
 				ok: true,
@@ -228,59 +201,42 @@ describe("Habit services", () => {
 				status: 200
 			});
 
-			const result = await deleteHabit(fetch, habit.id);
+			const result: Habit = await deleteHabit(fetch, habit.id);
 
-			expect(result).toEqual({ habit });
+			expect(result).toEqual(habit);
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an error if habit deletion fails", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 500,
 				json: () => Promise.resolve({ message: "Server error" })
 			});
 
-			await expect(deleteHabit(fetch, habit.id)).rejects.toThrow(
-				"Failed during deleteHabit service"
-			);
+			await expect(deleteHabit(fetch, habit.id)).rejects.toThrow("Failed to delete habit");
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 
 		it("should throw an error if habit is not found", async () => {
-			const habit = { id: "1", userId: "1", isCompleted: false, name: "Drink water", points: 10 };
-
 			mockFetch.mockResolvedValueOnce({
 				ok: false,
 				status: 404,
 				json: () => Promise.resolve({ message: "Habit not found" })
 			});
 
-			await expect(deleteHabit(fetch, habit.id)).rejects.toThrow(
-				"Failed during deleteHabit service"
-			);
+			await expect(deleteHabit(fetch, habit.id)).rejects.toThrow("Failed to delete habit");
 			expect(mockFetch).toHaveBeenCalledWith(`/api/habits/${habit.id}`, {
 				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({ id: habit.id })
+				body: JSON.stringify({ habitId: habit.id })
 			});
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});

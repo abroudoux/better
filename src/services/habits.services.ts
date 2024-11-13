@@ -5,8 +5,7 @@ export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]>
 	try {
 		const response = await fetch("/api/habits", { method: "GET" });
 
-		if (!response.ok)
-			throw new Error(`Failed to fetch habits: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to fetch habits {getAllHabits service}");
 
 		const habits = await response.json();
 
@@ -24,12 +23,11 @@ export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]>
 	}
 }
 
-export async function getHabitById(fetch: typeof global.fetch, id: string): Promise<Habit> {
+export async function getHabitById(fetch: typeof global.fetch, habitId: string): Promise<Habit> {
 	try {
-		const response = await fetch(`/api/habits/${id}`, { method: "GET" });
+		const response = await fetch(`/api/habits/${habitId}`, { method: "GET" });
 
-		if (!response.ok)
-			throw new Error(`Failed to fetch habit: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to fetch habit {getHabitById service}");
 
 		const habit: Habit = await response.json();
 
@@ -51,8 +49,7 @@ export async function postHabit(fetch: typeof global.fetch, habit: HabitRequest)
 			body: JSON.stringify({ name: habit.name })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to create habit: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to create habit {postHabit service}");
 
 		const habitCreated: Habit = await response.json();
 
@@ -67,15 +64,17 @@ export async function postHabit(fetch: typeof global.fetch, habit: HabitRequest)
 	}
 }
 
-export async function toggleHabitStatus(fetch: typeof global.fetch, id: string): Promise<Habit> {
+export async function toggleHabitStatus(
+	fetch: typeof global.fetch,
+	habitId: string
+): Promise<Habit> {
 	try {
-		const response = await fetch(`/api/habits/${id}`, {
+		const response = await fetch(`/api/habits/${habitId}`, {
 			method: "PUT",
-			body: JSON.stringify({ id })
+			body: JSON.stringify({ habitId })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to update habit: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to update habit status");
 
 		const habitUpdated: Habit = await response.json();
 
@@ -113,15 +112,14 @@ export async function toggleAllHabitsStatus(
 	}
 }
 
-export async function deleteHabit(fetch: typeof global.fetch, id: string): Promise<Habit> {
+export async function deleteHabit(fetch: typeof global.fetch, habitId: string): Promise<Habit> {
 	try {
-		const response = await fetch(`/api/habits/${id}`, {
+		const response = await fetch(`/api/habits/${habitId}`, {
 			method: "DELETE",
-			body: JSON.stringify({ id })
+			body: JSON.stringify({ habitId })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to delete habit: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to delete habit");
 
 		const habitDeleted: Habit = await response.json();
 
