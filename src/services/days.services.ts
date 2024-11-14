@@ -5,8 +5,7 @@ export async function isNewDay(fetch: typeof global.fetch): Promise<IsNewDayResp
 	try {
 		const response = await fetch("/api/days");
 
-		if (!response.ok)
-			throw new Error(`Failed to check if new day: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to check if new day");
 
 		const result = await response.json();
 		const isNewDay: boolean = result.isNewDay;
@@ -33,8 +32,7 @@ export async function postNewDay(fetch: typeof global.fetch, habits: Habit[]): P
 			body: JSON.stringify({ habits })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to create new day ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to create new day");
 
 		const dayCreated: Day = await response.json();
 
@@ -60,8 +58,7 @@ export async function putDay(
 			body: JSON.stringify({ habits })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to edit day ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to edit day");
 
 		const dayUpdated: Day = await response.json();
 
