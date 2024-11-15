@@ -8,9 +8,6 @@ export const load: LayoutServerLoad = async ({ fetch }: { fetch: typeof global.f
 		const result = await getAllHabits(fetch);
 		const habits: Habit[] = result;
 
-		//! DEBUG
-		if (process.env.NODE_ENV === "development") console.log("Habits {+layout.server.ts}:", habits);
-
 		return {
 			habits
 		};
