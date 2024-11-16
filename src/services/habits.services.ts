@@ -83,9 +83,7 @@ export async function toggleAllHabitsStatus(
 
 		const habitsUpdated: Habit[] = await response.json();
 
-		console.log("habitsUpdated from toggleAllHabitsStatus:", habitsUpdated);
-
-		return habits as Habit[];
+		return habitsUpdated as Habit[];
 	} catch (error: unknown) {
 		console.error("Error {toggleAllHabitsStatus}:", error instanceof Error ? error.message : error);
 		throw error instanceof Error ? error : new Error("An unexpected error occurred");
