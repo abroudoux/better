@@ -14,9 +14,10 @@
 	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { Label } from "$lib/components/ui/label";
+	import { Checkbox } from "$lib/components/ui/checkbox";
+	import { Textarea } from "$lib/components/ui/textarea";
 
 	import type { HabitRequest } from "$utils/types/services";
-
 	import { postHabit } from "$services/habits.services";
 
 	let newHabit: HabitRequest = {
@@ -24,11 +25,11 @@
 	};
 	let isLoading: boolean = false;
 	let isOpen: boolean = false;
+	let createMultipleHabits: boolean = false;
 
 	async function handleCreateHabit() {
 		isLoading = true;
 		const result = await postHabit(fetch, newHabit);
-		console.log(result);
 		isOpen = false;
 		newHabit = { name: "" };
 
@@ -44,25 +45,30 @@
 	<Trigger class={buttonVariants({ variant: "default" })}>Next step</Trigger>
 	<Content class="sm:max-w-[425px]">
 		<form action="POST" on:submit|preventDefault={handleCreateHabit}>
-			<Header>
-				<Title>Create an habit</Title>
+			<Header class="pb-4">
+				<Title>Create a new habit</Title>
 				<Description>Add a new daily challenge</Description>
 			</Header>
-			<div class="grid gap-4 py-4">
-				<div class="grid grid-cols-4 items-center gap-4">
-					<Label for="name" class="text-right">Name</Label>
-					<Input
-						id="name"
-						placeholder="Another step"
-						class="col-span-3"
-						bind:value={newHabit.name}
+			<div class="flex flex-col py-4 gap-6">
+				{#if createMultipleHabits}
+					<Textarea id="multipleHabits" placeholder="Register new habits" class="w-full" />
+				{:else}
+					<Input id="name" placeholder="Next step" class="w-full" bind:value={newHabit.name} />
+				{/if}
+				<div class="flex w-full gap-2 items-center">
+					<Checkbox
+						id="createMultipleHabits"
+						class="col-span-1"
+						bind:checked={createMultipleHabits}
 					/>
+					<Label for="createMultipleHabits">Create multiple habits</Label>
 				</div>
+				<Footer>
+					<Button type="submit" disabled={isLoading}
+						>{isLoading ? "Creating..." : "Next step"}</Button
+					>
+				</Footer>
 			</div>
-			<Footer>
-				<Button type="submit" disabled={isLoading}>{isLoading ? "Creating..." : "Next step"}</Button
-				>
-			</Footer>
 		</form>
 	</Content>
 </Root>
