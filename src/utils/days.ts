@@ -8,23 +8,13 @@ export function getDate() {
 
 export async function manageDay() {
 	const response = await isNewDay(fetch);
-
-	//! DEBUG
-	if (process.env.NODE_ENV === "developement") console.log("Response {days.ts}", response);
-
 	const habits: Habit[] = await getAllHabits(fetch);
 
 	if (response.isNewDay) {
 		const dayCreated: Day = await postNewDay(fetch, habits);
 		const habitsUpdated: Habit[] = await toggleAllHabitsStatus(fetch, habits);
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development") console.log("New day created:", dayCreated);
-		if (process.env.NODE_ENV === "development") console.log("Habits updated:", habitsUpdated);
+		window.location.reload();
 	} else if (response.dayId) {
 		const dayUpdated: Day = await putDay(fetch, response.dayId, habits);
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development") console.log("Day updated:", dayUpdated);
 	}
 }

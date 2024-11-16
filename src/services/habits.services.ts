@@ -7,14 +7,7 @@ export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]>
 
 		if (!response.ok) throw new Error("Failed to fetch habits {getAllHabits service}");
 
-		const habits = await response.json();
-
-		if (!Array.isArray(habits))
-			throw new Error("Invalid response structure: Expected an array of habits");
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {getAllHabits service}:", habits);
+		const habits: Habit[] = await response.json();
 
 		return habits as Habit[];
 	} catch (error: unknown) {
@@ -30,10 +23,6 @@ export async function getHabitById(fetch: typeof global.fetch, habitId: string):
 		if (!response.ok) throw new Error("Failed to fetch habit {getHabitById service}");
 
 		const habit: Habit = await response.json();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {getHabitById service}:", habit);
 
 		return habit;
 	} catch (error: unknown) {
@@ -52,10 +41,6 @@ export async function postHabit(fetch: typeof global.fetch, habit: HabitRequest)
 		if (!response.ok) throw new Error("Failed to create habit {postHabit service}");
 
 		const habitCreated: Habit = await response.json();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {postHabit service}:", habitCreated);
 
 		return habitCreated;
 	} catch (error: unknown) {
@@ -78,10 +63,6 @@ export async function toggleHabitStatus(
 
 		const habitUpdated: Habit = await response.json();
 
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {toggleHabitStatus service}:", habitUpdated);
-
 		return habitUpdated;
 	} catch (error: unknown) {
 		console.error("Error {toggleHabitStatus}:", error instanceof Error ? error.message : error);
@@ -94,13 +75,15 @@ export async function toggleAllHabitsStatus(
 	habits: Habit[]
 ): Promise<Habit[]> {
 	try {
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {toggleAllHabitsStatus service}:", habits);
+		const response = await fetch("/api/habits/reset", {
+			method: "POST"
+		});
 
-		for (const habit of habits) {
-			habit.isCompleted = false;
-		}
+		if (!response.ok) throw new Error("Failed to update all habits status");
+
+		const habitsUpdated: Habit[] = await response.json();
+
+		console.log("habitsUpdated from toggleAllHabitsStatus:", habitsUpdated);
 
 		return habits as Habit[];
 	} catch (error: unknown) {
@@ -119,10 +102,6 @@ export async function deleteHabit(fetch: typeof global.fetch, habitId: string): 
 		if (!response.ok) throw new Error("Failed to delete habit");
 
 		const habitDeleted: Habit = await response.json();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("Habits {deleteHabit service}:", habitDeleted);
 
 		return habitDeleted;
 	} catch (error: unknown) {

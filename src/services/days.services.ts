@@ -9,11 +9,7 @@ export async function isNewDay(fetch: typeof global.fetch): Promise<IsNewDayResp
 
 		const result = await response.json();
 		const isNewDay: boolean = result.isNewDay;
-		const dayId: string = result.today?.id;
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("isNewDay {isNewDay service}:", isNewDay);
+		const dayId: string = result.day?.id;
 
 		return {
 			isNewDay,
@@ -36,9 +32,7 @@ export async function postNewDay(fetch: typeof global.fetch, habits: Habit[]): P
 
 		const dayCreated: Day = await response.json();
 
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("dayCreated {postNewDay service}:", dayCreated);
+		console.log("dayCreated from postNewDay:", dayCreated);
 
 		return dayCreated;
 	} catch (error: unknown) {
@@ -61,10 +55,6 @@ export async function putDay(
 		if (!response.ok) throw new Error("Failed to edit day");
 
 		const dayUpdated: Day = await response.json();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("dayUpdated {putDay service}:", dayUpdated);
 
 		return dayUpdated;
 	} catch (error: unknown) {
