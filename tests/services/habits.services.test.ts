@@ -7,8 +7,8 @@ import {
 	toggleHabitStatus,
 	toggleAllHabitsStatus,
 	deleteHabit
-} from "$services/habits.services";
-import type { Habit } from "$utils/types/entities";
+} from "$lib/services/habits.services";
+import type { Habit } from "$lib/utils/types/entities";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;

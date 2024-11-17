@@ -4,8 +4,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "$lib/db/server/client";
 import { daysTable } from "$lib/db/server/schema";
-
-import type { Habit, Day } from "$utils/types/entities";
+import type { Habit, Day } from "$lib/utils/types/entities";
 
 export const GET: RequestHandler = async () => {
 	try {

@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "$lib/db/server/client";
 import { habitsTable } from "$lib/db/server/schema";
-import type { Habit } from "$utils/types/entities";
+import type { Habit } from "$lib/utils/types/entities";
 
 export const POST: RequestHandler = async () => {
 	try {

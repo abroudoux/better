@@ -1,7 +1,6 @@
 <script lang="ts">
 	import MenuSidebar from "$lib/components/global/MenuSidebar.svelte";
-
-	import { menuItemsSidebar } from "$utils/constants";
+	import { menuItemsSidebar } from "$lib/utils/constants";
 </script>
 
 <nav

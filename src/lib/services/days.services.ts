@@ -1,5 +1,5 @@
-import type { Day, Habit } from "$utils/types/entities";
-import type { IsNewDayResponse } from "$utils/types/services";
+import type { Day, Habit } from "$lib/utils/types/entities";
+import type { IsNewDayResponse } from "$lib/utils/types/services";
 
 export async function isNewDay(fetch: typeof global.fetch): Promise<IsNewDayResponse> {
 	try {

@@ -7,8 +7,7 @@
 	import CreateHabit from "$lib/components/habits/CreateHabitModal.svelte";
 	import ManageHabitsToggle from "$lib/components/habits/ManageHabitsToggle.svelte";
 	import ProgressBar from "$lib/components/habits/ProgressBar.svelte";
-
-	import { habitsData } from "$stores/habit.store";
+	import { habitsData } from "$lib/stores/habit.store";
 
 	export let data: PageData;
 

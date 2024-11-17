@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from "./$types";
 
-import { getAllHabits } from "$services/habits.services";
-import type { Habit } from "$utils/types/entities";
+import { getAllHabits } from "$lib/services/habits.services";
+import type { Habit } from "$lib/utils/types/entities";
 
 export const load: LayoutServerLoad = async ({ fetch }: { fetch: typeof global.fetch }) => {
 	try {

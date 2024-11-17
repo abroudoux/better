@@ -4,8 +4,7 @@
 	import Trash from "lucide-svelte/icons/trash";
 
 	import { Dialog, Input, List, Empty, Group, Item, Separator } from "$lib/components/ui/command";
-
-	import { manageHabits, createHabit } from "$stores/habit.store";
+	import { manageHabits, createHabit } from "$lib/stores/habit.store";
 
 	let open: boolean = false;
 

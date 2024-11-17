@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-import { isNewDay, postNewDay, putDay } from "$services/days.services";
-import type { Habit } from "$utils/types/entities";
+import { isNewDay, postNewDay, putDay } from "$lib/services/days.services";
+import type { Habit } from "$lib/utils/types/entities";
 
 const mockFetch = vi.fn();
 global.fetch = mockFetch;

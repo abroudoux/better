@@ -1,5 +1,5 @@
-import type { Habit } from "$utils/types/entities";
-import type { HabitRequest } from "$utils/types/services";
+import type { Habit } from "$lib/utils/types/entities";
+import type { HabitRequest } from "$lib/utils/types/services";
 
 export async function getAllHabits(fetch: typeof global.fetch): Promise<Habit[]> {
 	try {

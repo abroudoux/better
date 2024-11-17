@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto, invalidateAll } from "$app/navigation";
 	import { toast } from "svelte-sonner";
-	import { writable } from "svelte/store";
 
 	import {
 		Root,
@@ -17,10 +16,9 @@
 	import { Label } from "$lib/components/ui/label";
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import { Textarea } from "$lib/components/ui/textarea";
-
-	import type { HabitRequest } from "$utils/types/services";
-	import { postHabit } from "$services/habits.services";
-	import { createHabit } from "$stores/habit.store";
+	import type { HabitRequest } from "$lib/utils/types/services";
+	import { postHabit } from "$lib/services/habits.services";
+	import { createHabit } from "$lib/stores/habit.store";
 
 	let newHabit: HabitRequest = { name: "" };
 	let isLoading: boolean = false;

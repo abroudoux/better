@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores";
 
-	import type { MenuSidebar } from "$utils/types/interfaces";
+	import type { MenuSidebar } from "$lib/utils/types/interfaces";
 
 	export let menu: MenuSidebar;
 

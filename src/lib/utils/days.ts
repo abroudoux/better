@@ -1,8 +1,8 @@
 import { toast } from "svelte-sonner";
 
-import { isNewDay, postNewDay, putDay } from "$services/days.services";
-import { getAllHabits, toggleAllHabitsStatus } from "$services/habits.services";
-import type { Habit } from "$utils/types/entities";
+import { isNewDay, postNewDay, putDay } from "$lib/services/days.services";
+import { getAllHabits, toggleAllHabitsStatus } from "$lib/services/habits.services";
+import type { Habit } from "$lib/utils/types/entities";
 
 export function getDate() {
 	return new Date().toISOString().slice(0, 10);

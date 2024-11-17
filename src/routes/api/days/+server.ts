@@ -5,8 +5,8 @@ import type { RequestEvent, RequestHandler } from "./$types";
 
 import { db } from "$lib/db/server/client";
 import { daysTable } from "$lib/db/server/schema";
-import type { Day, Habit } from "$utils/types/entities";
-import { getDate } from "$utils/days";
+import type { Day, Habit } from "$lib/utils/types/entities";
+import { getDate } from "$lib/utils/days";
 
 export const GET: RequestHandler = async () => {
 	try {
