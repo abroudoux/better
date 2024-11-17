@@ -4,8 +4,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "$lib/db/server/client";
 import { daysTable } from "$lib/db/server/schema";
-
-import type { Habit } from "$utils/types/entities";
+import type { Habit, Day } from "$lib/utils/types/entities";
 
 export const GET: RequestHandler = async () => {
 	try {
@@ -39,23 +38,20 @@ export const PUT: RequestHandler = async ({ request, params }: RequestEvent) => 
 			return json({ habits: [], message: "No habits provided" }, { status: 400 });
 		}
 
-		const habitsLength: number = habits.length;
+		const habitsNum: number = habits.length;
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
-		const percentage: number = Math.round((habitsCompleted / habitsLength) * 100);
-		const habitsJson = JSON.stringify(habits);
+		const percentage: number = Math.round((habitsCompleted / habitsNum) * 100);
+		const habitsJson = habits;
+		const updatedDay: Day = {
+			date: day.date,
+			id: params.id,
+			habits: habitsJson,
+			habitsNum,
+			habitsCompleted,
+			percentage
+		};
 
-		await db
-			.update(daysTable)
-			.set({ habits: habitsJson, habitsCompleted, habitsLen: habitsLength, percentage })
-			.where(eq(daysTable.id, params.id))
-			.execute();
-
-		const updatedDay = await db.query.daysTable.findFirst({
-			where: eq(daysTable.id, params.id)
-		});
-
-		if (!updatedDay)
-			return json({ updatedDay: {}, message: "Day updated not found" }, { status: 404 });
+		await db.update(daysTable).set(updatedDay).where(eq(daysTable.id, params.id)).execute();
 
 		return json({ updatedDay: updatedDay, message: "Day successfully updated" }, { status: 200 });
 	} catch (error: any) {

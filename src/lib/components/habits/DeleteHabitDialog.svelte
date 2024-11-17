@@ -11,9 +11,8 @@
 		Title,
 		Description
 	} from "$lib/components/ui/alert-dialog";
-
-	import type { Habit } from "$utils/types/entities";
-	import { deleteHabit } from "$services/habits.services";
+	import type { Habit } from "$lib/utils/types/entities";
+	import { deleteHabit } from "$lib/services/habits.services";
 
 	export let habit: Habit;
 

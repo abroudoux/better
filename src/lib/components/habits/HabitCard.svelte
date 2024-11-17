@@ -5,10 +5,9 @@
 	import Button from "$lib/components/ui/button/button.svelte";
 	import { Root, Trigger } from "$lib/components/ui/alert-dialog";
 	import DeleteHabit from "$lib/components/habits/DeleteHabitDialog.svelte";
-
-	import type { Habit } from "$utils/types/entities";
-	import { manageHabits, habitsData } from "$stores/habit.store";
-	import { toggleHabitStatus } from "$services/habits.services";
+	import type { Habit } from "$lib/utils/types/entities";
+	import { manageHabits, habitsData } from "$lib/stores/habit.store";
+	import { toggleHabitStatus } from "$lib/services/habits.services";
 
 	export let habit: Habit;
 

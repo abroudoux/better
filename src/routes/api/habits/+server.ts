@@ -4,15 +4,13 @@ import type { RequestEvent, RequestHandler } from "./$types";
 
 import { db } from "$lib/db/server/client";
 import { habitsTable } from "$lib/db/server/schema";
+import type { Habit } from "$lib/utils/types/entities";
 
 export const GET: RequestHandler = async () => {
 	try {
 		const habits = await db.query.habitsTable.findMany();
 
 		if (!habits) return json([], { status: 404 });
-
-		//! DEBUG
-		console.log("habits from GET habits:", habits);
 
 		return json(habits, { status: 200 });
 	} catch (error: any) {
@@ -23,19 +21,14 @@ export const GET: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 	try {
-		const id = uuidv4();
+		const id: string = uuidv4();
 		const { name } = await request.json();
-		// TODO => replace userId with the actual user id
-		const newHabit = {
+		const newHabit: Habit = {
 			id,
-			userId: "2e3ae305-0bae-4fc0-9b8b-890770cbbaf0",
 			isCompleted: false,
 			name
 		};
 		await db.insert(habitsTable).values(newHabit).execute();
-
-		//! DEBUG
-		console.log("newHabit from POST habits:", newHabit);
 
 		return json({ newHabit: newHabit, message: "Habit successfully created" }, { status: 201 });
 	} catch (error: any) {
