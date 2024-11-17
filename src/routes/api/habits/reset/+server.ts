@@ -4,14 +4,13 @@ import { eq } from "drizzle-orm";
 
 import { db } from "$lib/db/server/client";
 import { habitsTable } from "$lib/db/server/schema";
+import type { Habit } from "$utils/types/entities";
 
 export const POST: RequestHandler = async () => {
 	try {
-		const habits = await db.query.habitsTable.findMany({});
+		const habits = (await db.query.habitsTable.findMany({})) as Habit[];
 
 		if (!habits) return json({ habits: [], message: "No habits found" }, { status: 404 });
-
-		console.log("HEEEEEEEEEEEEERE", habits);
 
 		for (const habit of habits) {
 			await db
@@ -20,10 +19,6 @@ export const POST: RequestHandler = async () => {
 				.where(eq(habitsTable.id, habit.id))
 				.execute();
 		}
-
-		const newHabits = await db.query.habitsTable.findMany({});
-
-		console.log("habits from reset:", newHabits);
 
 		return json({ habits, message: "Habits successfully reset" }, { status: 200 });
 	} catch (error: any) {
