@@ -4,6 +4,7 @@
 
 	import Header from "$lib/components/global/Header.svelte";
 	import Sidebar from "$lib/components/global/Sidebar.svelte";
+	import Command from "$lib/components/global/Command.svelte";
 	import { Toaster } from "$lib/components/ui/sonner";
 
 	import { manageDay } from "$utils/days";
@@ -26,3 +27,4 @@
 </div>
 
 <Toaster />
+<Command />

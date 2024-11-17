@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto, invalidateAll } from "$app/navigation";
 	import { toast } from "svelte-sonner";
+	import { writable } from "svelte/store";
 
 	import {
 		Root,
@@ -19,10 +20,10 @@
 
 	import type { HabitRequest } from "$utils/types/services";
 	import { postHabit } from "$services/habits.services";
+	import { createHabit } from "$stores/habit.store";
 
 	let newHabit: HabitRequest = { name: "" };
 	let isLoading: boolean = false;
-	let isOpen: boolean = false;
 	let createMultipleHabits: boolean = false;
 	let multipleHabits: string = "";
 
@@ -38,10 +39,11 @@
 			await postHabit(fetch, newHabit);
 		}
 
-		isOpen = false;
+		createHabit.set(false);
 		newHabit = { name: "" };
 		multipleHabits = "";
 		createMultipleHabits = false;
+
 		await invalidateAll();
 		await goto("/");
 		toast.success("Habit(s) created successfully");
@@ -49,8 +51,10 @@
 	}
 </script>
 
-<Root bind:open={isOpen}>
-	<Trigger class={buttonVariants({ variant: "default" })}>Next step</Trigger>
+<Root bind:open={$createHabit}>
+	<Trigger class={buttonVariants({ variant: "default" })} on:click={() => createHabit.set(true)}>
+		Next step
+	</Trigger>
 	<Content class="sm:max-w-[425px]">
 		<form action="POST" on:submit|preventDefault={handleCreateHabit}>
 			<Header class="pb-4">
@@ -77,9 +81,9 @@
 					<Label for="createMultipleHabits">Create multiple habits</Label>
 				</div>
 				<Footer>
-					<Button type="submit" disabled={isLoading}
-						>{isLoading ? "Creating..." : "Next step"}</Button
-					>
+					<Button type="submit" disabled={isLoading}>
+						{isLoading ? "Creating..." : "Next step"}
+					</Button>
 				</Footer>
 			</div>
 		</form>
