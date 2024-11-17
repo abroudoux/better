@@ -20,23 +20,31 @@
 	import type { HabitRequest } from "$utils/types/services";
 	import { postHabit } from "$services/habits.services";
 
-	let newHabit: HabitRequest = {
-		name: ""
-	};
+	let newHabit: HabitRequest = { name: "" };
 	let isLoading: boolean = false;
 	let isOpen: boolean = false;
 	let createMultipleHabits: boolean = false;
+	let multipleHabits: string = "";
 
 	async function handleCreateHabit() {
 		isLoading = true;
-		const result = await postHabit(fetch, newHabit);
+
+		if (createMultipleHabits) {
+			const habitNames = multipleHabits.split("\n").filter((line) => line.trim() !== "");
+			for (const name of habitNames) {
+				await postHabit(fetch, { name });
+			}
+		} else {
+			await postHabit(fetch, newHabit);
+		}
+
 		isOpen = false;
 		newHabit = { name: "" };
-
+		multipleHabits = "";
+		createMultipleHabits = false;
 		await invalidateAll();
 		await goto("/");
-
-		toast.success("Habit created successfully");
+		toast.success("Habit(s) created successfully");
 		isLoading = false;
 	}
 </script>
@@ -51,7 +59,12 @@
 			</Header>
 			<div class="flex flex-col py-4 gap-6">
 				{#if createMultipleHabits}
-					<Textarea id="multipleHabits" placeholder="Register new habits" class="w-full" />
+					<Textarea
+						id="multipleHabits"
+						placeholder="Register new habits"
+						class="w-full"
+						bind:value={multipleHabits}
+					/>
 				{:else}
 					<Input id="name" placeholder="Next step" class="w-full" bind:value={newHabit.name} />
 				{/if}
