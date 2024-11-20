@@ -27,7 +27,7 @@
 
 		toast.success("Habit deleted successfully");
 
-		isLoading = true;
+		isLoading = false;
 	}
 </script>
 
