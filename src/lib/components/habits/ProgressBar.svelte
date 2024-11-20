@@ -2,9 +2,8 @@
 	import { toast } from "svelte-sonner";
 
 	import { Progress } from "$lib/components/ui/progress";
-
-	import { habitsData } from "$stores/habit.store";
-	import type { Habit } from "$utils/types/entities";
+	import { habitsData } from "$lib/stores/habit.store";
+	import type { Habit } from "$lib/utils/types/entities";
 
 	$: habits = $habitsData as Habit[];
 	$: habitsLength = habits.length;

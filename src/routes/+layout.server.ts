@@ -1,15 +1,12 @@
 import type { LayoutServerLoad } from "./$types";
 
-import { getAllHabits } from "$services/habits.services";
-import type { Habit } from "$utils/types/entities";
+import { getAllHabits } from "$lib/services/habits.services";
+import type { Habit } from "$lib/utils/types/entities";
 
 export const load: LayoutServerLoad = async ({ fetch }: { fetch: typeof global.fetch }) => {
 	try {
 		const result = await getAllHabits(fetch);
 		const habits: Habit[] = result;
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development") console.log("Habits {+layout.server.ts}:", habits);
 
 		return {
 			habits

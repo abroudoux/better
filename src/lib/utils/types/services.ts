@@ -1,4 +1,4 @@
-import type { Habit } from "$utils/types/entities";
+import type { Habit } from "$lib/utils/types/entities";
 
 export type HabitRequest = Pick<Habit, "name">;
 

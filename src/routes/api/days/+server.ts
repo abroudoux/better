@@ -5,8 +5,8 @@ import type { RequestEvent, RequestHandler } from "./$types";
 
 import { db } from "$lib/db/server/client";
 import { daysTable } from "$lib/db/server/schema";
-import type { Day, Habit } from "$utils/types/entities";
-import { getDate } from "$utils/days";
+import type { Day, Habit } from "$lib/utils/types/entities";
+import { getDate } from "$lib/utils/days";
 
 export const GET: RequestHandler = async () => {
 	try {
@@ -16,9 +16,6 @@ export const GET: RequestHandler = async () => {
 		});
 
 		if (!today) return json({ isNewDay: true, message: "No record found." }, { status: 200 });
-
-		//! DEBUG
-		console.log("today from GET days:", today);
 
 		return json({ isNewDay: false, day: today }, { status: 200 });
 	} catch (error: any) {
@@ -38,8 +35,7 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 		const habitsLength: number = habits.length;
 		const habitsCompleted: number = habits.filter((habit) => habit.isCompleted).length;
 		const percentage: number = Math.round((habitsCompleted / habitsLength) * 100);
-
-		const newDay: Day = {
+		const dayCreated: Day = {
 			id: id,
 			date: now,
 			habits: habits,
@@ -48,14 +44,7 @@ export const POST: RequestHandler = async ({ request }: RequestEvent) => {
 			habitsNum: habits.length
 		};
 
-		//! DEBUG
-		if (process.env.NODE_ENV === "development") console.log("newDay from POST days:", newDay);
-
-		const dayCreated = await db.insert(daysTable).values(newDay).execute();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("dayCreated from POST days:", dayCreated);
+		await db.insert(daysTable).values(dayCreated).execute();
 
 		return json({ day: dayCreated, message: "Day successfully created" }, { status: 201 });
 	} catch (error: unknown) {

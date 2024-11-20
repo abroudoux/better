@@ -1,20 +1,15 @@
-import type { Day, Habit } from "$utils/types/entities";
-import type { IsNewDayResponse } from "$utils/types/services";
+import type { Day, Habit } from "$lib/utils/types/entities";
+import type { IsNewDayResponse } from "$lib/utils/types/services";
 
 export async function isNewDay(fetch: typeof global.fetch): Promise<IsNewDayResponse> {
 	try {
 		const response = await fetch("/api/days");
 
-		if (!response.ok)
-			throw new Error(`Failed to check if new day: ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to check if new day");
 
 		const result = await response.json();
 		const isNewDay: boolean = result.isNewDay;
-		const dayId: string = result.today?.id;
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("isNewDay {isNewDay service}:", isNewDay);
+		const dayId: string = result.day?.id;
 
 		return {
 			isNewDay,
@@ -33,14 +28,11 @@ export async function postNewDay(fetch: typeof global.fetch, habits: Habit[]): P
 			body: JSON.stringify({ habits })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to create new day ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to create new day");
 
 		const dayCreated: Day = await response.json();
 
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("dayCreated {postNewDay service}:", dayCreated);
+		console.log("dayCreated from postNewDay:", dayCreated);
 
 		return dayCreated;
 	} catch (error: unknown) {
@@ -60,14 +52,9 @@ export async function putDay(
 			body: JSON.stringify({ habits })
 		});
 
-		if (!response.ok)
-			throw new Error(`Failed to edit day ${response.statusText || "Unknown error"}`);
+		if (!response.ok) throw new Error("Failed to edit day");
 
 		const dayUpdated: Day = await response.json();
-
-		//! DEBUG
-		if (process.env.NODE_ENV === "development")
-			console.log("dayUpdated {putDay service}:", dayUpdated);
 
 		return dayUpdated;
 	} catch (error: unknown) {
