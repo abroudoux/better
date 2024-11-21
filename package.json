@@ -36,7 +36,7 @@
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^0.21.15",
 		"cmdk-sv": "^0.0.18",
-		"drizzle-kit": "^0.24.2",
+		"drizzle-kit": "^0.28.1",
 		"eslint": "^9.11.1",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.44.0",
@@ -56,9 +56,10 @@
 		"vitest": "^2.1.1"
 	},
 	"dependencies": {
+		"@libsql/client": "^0.14.0",
 		"clsx": "^2.1.1",
 		"dotenv": "^16.4.5",
-		"drizzle-orm": "^0.36.1",
+		"drizzle-orm": "^0.36.3",
 		"embla-carousel-svelte": "^8.3.0",
 		"lucia": "^3.2.0",
 		"mode-watcher": "^0.4.1",

@@ -12,22 +12,16 @@ async function seedDatabase() {
 		.insert(habitsTable)
 		.values([
 			{
-				id: "0",
-				name: "Drink water",
-				isCompleted: 0
+				name: "Drink water"
 			},
 			{
-				id: "1",
-				name: "Read",
-				isCompleted: 0
+				name: "Read"
 			},
 			{
-				id: "2",
-				name: "Exercise",
-				isCompleted: 0
+				name: "Exercise"
 			}
 		])
-		.execute();
+		.returning();
 
 	console.log("Habits seeded");
 }

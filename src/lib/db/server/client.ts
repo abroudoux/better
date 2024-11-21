@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-import { drizzle } from "drizzle-orm/libsql/web";
+import { drizzle } from "drizzle-orm/libsql";
 import { createClient } from "@libsql/client";
 
 const databaseUrl = process.env.DATABASE_URL as string;
