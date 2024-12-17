@@ -1,14 +1,19 @@
 import type { SvelteComponent } from "svelte";
-import { House } from "lucide-svelte";
+import { House, Wallet } from "lucide-svelte";
 
-import type { MenuSidebar } from "$utils/types/interfaces";
-import type { Habit } from "$utils/types/entities";
+import type { MenuSidebar } from "$lib/utils/types/interfaces";
+import type { Habit } from "$lib/utils/types/entities";
 
 export const menuItemsSidebar: MenuSidebar[] = [
 	{
 		label: "Dashboard",
 		url: "/",
 		icon: House as typeof SvelteComponent
+	},
+	{
+		label: "Budget",
+		url: "/budget",
+		icon: Wallet as typeof SvelteComponent
 	}
 ];
 

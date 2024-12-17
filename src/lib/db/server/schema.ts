@@ -16,10 +16,26 @@ export const daysTable = pgTable("days", {
 	percentage: integer("percentage").default(0).notNull()
 });
 
+export const budgetTable = pgTable("budget", {
+	id: varchar("id").primaryKey().default("uuid_generate_v4()"),
+	sources: json("sources").default([]).notNull()
+});
+
+export const sourceBudgetTable = pgTable("source_budget", {
+	id: varchar("id").primaryKey().default("uuid_generate_v4()"),
+	name: varchar("name").notNull(),
+	interestRate: integer("interest_rate").notNull(),
+	amount: integer("amount").notNull()
+});
+
 export const daysRelations = relations(daysTable, ({ many }) => ({
 	habits: many(habitsTable)
 }));
 
 export const habitsRelations = relations(habitsTable, ({ many }) => ({
 	days: many(daysTable)
+}));
+
+export const budgetRelations = relations(budgetTable, ({ many }) => ({
+	sources: many(sourceBudgetTable)
 }));

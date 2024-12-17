@@ -8,6 +8,13 @@
       "when": 1730385429752,
       "tag": "0000_amusing_inhumans",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1734453486800,
+      "tag": "0001_third_sinister_six",
+      "breakpoints": true
     }
   ]
 }
