@@ -12,3 +12,15 @@ export type Day = {
 	habitsCompleted: number;
 	percentage: number;
 };
+
+export type Budget = {
+	id: string;
+	sources: SourceBudget[];
+};
+
+export type SourceBudget = {
+	id: string;
+	name: string;
+	interestRate: number;
+	amount: number;
+};
