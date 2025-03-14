@@ -1,21 +1,20 @@
 <script lang="ts">
-	import { onMount } from "svelte";
 	import Mountain from "lucide-svelte/icons/mountain";
 	import Trash from "lucide-svelte/icons/trash";
 
 	import { Dialog, Input, List, Empty, Group, Item, Separator } from "$lib/components/ui/command";
 	import { manageHabits, createHabit } from "$lib/stores/habit.store";
 
-	let open: boolean = false;
+	let open = $state(false);
 
-	onMount(() => {
-		function handleKeydown(e: KeyboardEvent) {
-			if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-				e.preventDefault();
-				open = !open;
-			}
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault();
+			open = !open;
 		}
+	}
 
+	$effect(() => {
 		document.addEventListener("keydown", handleKeydown);
 		return () => {
 			document.removeEventListener("keydown", handleKeydown);
