@@ -4,7 +4,7 @@
 	import SectionLayout from "$lib/components/layouts/SectionLayout.svelte";
 	import Loader from "$lib/components/global/Loader.svelte";
 	import ListHabits from "$lib/components/habits/ListHabits.svelte";
-	import CreateHabit from "$lib/components/habits/CreateHabitModal.svelte";
+	import ModalCreateHabit from "$lib/components/habits/ModalCreateHabit.svelte";
 	import ManageHabitsToggle from "$lib/components/habits/ManageHabitsToggle.svelte";
 	import ProgressBar from "$lib/components/habits/ProgressBar.svelte";
 	import { habitsData } from "$lib/stores/habit.store";
@@ -33,7 +33,7 @@
 					<h2 class="text-3xl font-semibold">Habits</h2>
 					<div class="flex flex-row items-center gap-4">
 						<ManageHabitsToggle />
-						<CreateHabit />
+						<ModalCreateHabit />
 					</div>
 				</div>
 				<ListHabits />
