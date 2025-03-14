@@ -5,7 +5,7 @@
 	import Loader from "$lib/components/global/Loader.svelte";
 	import ListHabits from "$lib/components/habits/ListHabits.svelte";
 	import ModalCreateHabit from "$lib/components/habits/ModalCreateHabit.svelte";
-	import ManageHabitsToggle from "$lib/components/habits/ManageHabitsToggle.svelte";
+	import ToggleManageHabits from "$lib/components/habits/ToggleManageHabits.svelte";
 	import ProgressBar from "$lib/components/habits/ProgressBar.svelte";
 	import { habitsData } from "$lib/stores/habit.store";
 
@@ -32,7 +32,7 @@
 				<div class="w-full flex flex-row justify-between items-center">
 					<h2 class="text-3xl font-semibold">Habits</h2>
 					<div class="flex flex-row items-center gap-4">
-						<ManageHabitsToggle />
+						<ToggleManageHabits />
 						<ModalCreateHabit />
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 					<h2 class="text-3xl font-semibold max-w-3xl text-center">
 						You have created any habits yet. Start your journey by select new daily challenges
 					</h2>
-					<CreateHabit />
+					<ModalCreateHabit />
 				</div>
 			{/if}
 		</section>

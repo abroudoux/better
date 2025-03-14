@@ -1,8 +1,8 @@
 import type { SvelteComponent } from "svelte";
 import { House } from "lucide-svelte";
 
-import type { MenuSidebar } from "$utils/types/interfaces";
-import type { Habit } from "$utils/types/entities";
+import { type MenuSidebar } from "./types/interfaces";
+import { type Habit } from "./types/entities";
 
 export const menuItemsSidebar: MenuSidebar[] = [
 	{

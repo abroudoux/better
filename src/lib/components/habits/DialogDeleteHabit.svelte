@@ -14,13 +14,13 @@
 	import type { Habit } from "$lib/utils/types/entities";
 	import { deleteHabit } from "$lib/services/habits.services";
 
-	export let habit: Habit;
+	let habit = $props<{ habit: Habit }>();
 
-	let isLoading: boolean = false;
+	let isLoading = $state(false);
 
 	async function handleDeleteHabit() {
 		isLoading = true;
-		const result = await deleteHabit(fetch, habit.id);
+		const _ = await deleteHabit(fetch, habit.id);
 
 		await invalidateAll();
 		await goto("/");
@@ -32,7 +32,7 @@
 </script>
 
 <Content>
-	<form action="POST" on:submit|preventDefault={handleDeleteHabit}>
+	<form action="POST" onsubmit={handleDeleteHabit}>
 		<Header>
 			<Title>Delete this habit?</Title>
 			<Description>

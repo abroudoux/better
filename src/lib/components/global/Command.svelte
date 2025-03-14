@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Mountain from "lucide-svelte/icons/mountain";
-	import Trash from "lucide-svelte/icons/trash";
+	import Pencil from "lucide-svelte/icons/pencil";
 
 	import { Dialog, Input, List, Empty, Group, Item, Separator } from "$lib/components/ui/command";
 	import { manageHabits, createHabit } from "$lib/stores/habit.store";
@@ -36,13 +36,13 @@
 	<Input placeholder="Type a command or search..." />
 	<List>
 		<Empty>No results found.</Empty>
-		<Group heading="Suggestions">
+		<Group>
 			<Item value="createHabitCmd" onSelect={handleCreateHabit}>
 				<Mountain class="mr-2 h-4 w-4" />
 				<span>Create new habit</span>
 			</Item>
 			<Item value="manageHabitsCmd" onSelect={handleManageHabits}>
-				<Trash class="mr-2 h-4 w-4" />
+				<Pencil class="mr-2 h-4 w-4" />
 				<span>Manage habits</span>
 			</Item>
 		</Group>

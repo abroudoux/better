@@ -4,7 +4,7 @@
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import Button from "$lib/components/ui/button/button.svelte";
 	import { Root, Trigger } from "$lib/components/ui/alert-dialog";
-	import DeleteHabit from "$lib/components/habits/DeleteHabitDialog.svelte";
+	import DialogDeleteHabit from "$lib/components/habits/DialogDeleteHabit.svelte";
 	import type { Habit } from "$lib/utils/types/entities";
 	import { manageHabits, habitsData } from "$lib/stores/habit.store";
 	import { toggleHabitStatus } from "$lib/services/habits.services";
@@ -55,7 +55,7 @@
 			</Button>
 		</Trigger>
 		{#if isManagingHabits}
-			<DeleteHabit {habit} />
+			<DialogDeleteHabit {habit} />
 		{/if}
 	</Root>
 </li>
